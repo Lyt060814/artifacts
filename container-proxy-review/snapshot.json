@@ -1,14 +1,14 @@
 {
   "name": "container-proxy-review",
-  "title": "scene002.02 · 容器碰撞体前后对比",
+  "title": "已回退 · 容器碰撞体简化试验",
   "kind": "static",
   "url": "container-proxy-review/",
   "provisional": false,
-  "copied_at": "2026-10-05T11:30:47.001114+00:00",
-  "source_head": "ba7fec2beea862696786e5d3752197339cd44b1a",
+  "copied_at": "2026-10-05T12:37:51.958715+00:00",
+  "source_head": "c91c5e321fbfb1980f2fb56e2db7bef1a46a7511",
   "source_scene_sha256": "",
   "source_layer_manifest_sha256": "",
-  "snapshot_sha256": "a22e14e1f92b231f5d2bfa51dde2be899f8377dd54a6e2de99fca1c4b164761f",
+  "snapshot_sha256": "e8dfc93ffc5ce13c017c7f18f8513bed797fdf951310cb0ed8b3d7051eac0e13",
   "counts": {},
   "views": 0,
   "files": [
@@ -54,13 +54,13 @@
     },
     {
       "path": "index.html",
-      "sha256": "19008ce99d6ea04c038e56483f8cd2712e9fe0b8ac58019c3b74adca9b14bf3d",
-      "bytes": 8049
+      "sha256": "ecb145b27e1a9960349de58baf1157fb11a0bddaf7c8050d5381303ff12005a1",
+      "bytes": 8730
     },
     {
       "path": "metadata.json",
-      "sha256": "03723ac0f6ff1b227aa3aa811433ded39cb3ab1923799e683e3864d46eb28ebe",
-      "bytes": 3314
+      "sha256": "2398bc80c7a00df73a4da53c959f43085cbb169f8fe08f97be25a3d3f39e4d5d",
+      "bytes": 3506
     },
     {
       "path": "review.js",

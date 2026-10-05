@@ -1,0 +1,939 @@
+{
+  "schema_version": 1,
+  "status": "ready",
+  "status_label": "验证通过 · 已提交",
+  "source_commit": "c91c5e321fbfb1980f2fb56e2db7bef1a46a7511",
+  "baseline_commit": "000f5bc000c6766ca9ba2492958b1153956db14e",
+  "physics": {
+    "status": "verified_unchanged",
+    "collision_edits_in_visual_wave": false,
+    "container_trial": "reverted",
+    "coffee_bowl_hulls": 73,
+    "decorative_vase_hulls": 73
+  },
+  "objects": [
+    {
+      "id": "mug",
+      "status": "accepted",
+      "status_label": "RTX 审阅通过 · 已提交",
+      "note": "杯口、杯壁、把手与 UV 接缝保留；同机位 RTX 前后对比通过。",
+      "before_triangles": 145296,
+      "after_triangles": 21794,
+      "accepted_mesh_trial": "0.15",
+      "collections": [
+        {
+          "id": "rtx",
+          "renderer": "Isaac Sim RTX",
+          "note": "Isaac Sim · RayTracedLighting · 同机位、同渲染设置的修改前后图。",
+          "views": [
+            {
+              "id": "three_quarter",
+              "label": "斜视",
+              "before": {
+                "src": "img/rtx/before/mug-three_quarter.png",
+                "sha256": "ca4ab0d3d42c767fb7d079059840dd75f51809d08f47f793bf9d1f6909f2419b",
+                "source_sha256": "0999ff25649423c4bf1c0187f8a47ad260c96924223797f753882b1323e4492c"
+              },
+              "after": {
+                "src": "img/rtx/after/mug-three_quarter.png",
+                "sha256": "0536b3ff08586de352ee7872f291682ed9445d65ab55faa6ec53d3509df8a319",
+                "source_sha256": "e45f6532927507fa1b22d7619c0bfa105ef998490403d20b07b83abd148676d6"
+              },
+              "same_camera_verified": true
+            },
+            {
+              "id": "top",
+              "label": "俯视",
+              "before": {
+                "src": "img/rtx/before/mug-top.png",
+                "sha256": "b99744d2e16a68e22ae9a5d8ddc40524529923df289b1e3285103b42eb7578fd",
+                "source_sha256": "0999ff25649423c4bf1c0187f8a47ad260c96924223797f753882b1323e4492c"
+              },
+              "after": {
+                "src": "img/rtx/after/mug-top.png",
+                "sha256": "e19a440e5fa1f2f47f70d65a9c099b90320f7938fb3cbf05c2e9ce6829c7dde6",
+                "source_sha256": "e45f6532927507fa1b22d7619c0bfa105ef998490403d20b07b83abd148676d6"
+              },
+              "same_camera_verified": true
+            }
+          ]
+        },
+        {
+          "id": "blender",
+          "renderer": "Blender 辅助图",
+          "note": "Blender 辅助近景图。Isaac Sim 的实际材质效果见 RTX 图组。",
+          "views": [
+            {
+              "id": "front-textured",
+              "label": "正面 · 材质",
+              "before": {
+                "src": "img/blender/before/mug-before-front-textured.png",
+                "sha256": "d8a87a9dd7fa06385910855a9ea9ea5b236ac8acff175e9ae716f0800375d556"
+              },
+              "after": {
+                "src": "img/blender/after/mug-0.15-front-textured.png",
+                "sha256": "3d37e215434e52d1905b97c58a93c9a025647842e419b180637a3d2e5d3581ed"
+              }
+            },
+            {
+              "id": "front-clay",
+              "label": "正面 · 无纹理",
+              "before": {
+                "src": "img/blender/before/mug-before-front-clay.png",
+                "sha256": "00c041861f51c8f8d944983d1d338c7dd5b2902002d2668488a3e89cc9f0b668"
+              },
+              "after": {
+                "src": "img/blender/after/mug-0.15-front-clay.png",
+                "sha256": "f15f82ed6e86bc686b303d57d3bdbc17eb32c3a73bea316d5ad4f60d881675e8"
+              }
+            },
+            {
+              "id": "back-textured",
+              "label": "背面 · 材质",
+              "before": {
+                "src": "img/blender/before/mug-before-back-textured.png",
+                "sha256": "253d627f8ed94696f51a77d081e49f37a4fb368bb9bebfe09a32395f7127035b"
+              },
+              "after": {
+                "src": "img/blender/after/mug-0.15-back-textured.png",
+                "sha256": "ddf46e1925c5e1315f8ec3a8e38c84b1a578d57206cd3f1660312c4110ba2d84"
+              }
+            },
+            {
+              "id": "top-textured",
+              "label": "俯视 · 材质",
+              "before": {
+                "src": "img/blender/before/mug-before-top-textured.png",
+                "sha256": "bc41b717af027d1ce2861cdae1ea3f57bddb1d0b0abe89a2be0369e3cce5fa1f"
+              },
+              "after": {
+                "src": "img/blender/after/mug-0.15-top-textured.png",
+                "sha256": "950e6e56a8a603652d462d95bee6858d713935be07fb2d819fea1aa402b09cf1"
+              }
+            },
+            {
+              "id": "top-clay",
+              "label": "俯视 · 无纹理",
+              "before": {
+                "src": "img/blender/before/mug-before-top-clay.png",
+                "sha256": "c965eaa995e99b33fa713c9d9ff175ebab7b1563f6934daed55112ded6241100"
+              },
+              "after": {
+                "src": "img/blender/after/mug-0.15-top-clay.png",
+                "sha256": "894eb8c9a5c0d34dcc0c2ae09af5d19ea75a82f01cca07a519546851baf07bfa"
+              }
+            }
+          ]
+        }
+      ],
+      "accepted_source_commit": "c91c5e321fbfb1980f2fb56e2db7bef1a46a7511"
+    },
+    {
+      "id": "magazine_rack",
+      "status": "accepted",
+      "status_label": "RTX 审阅通过 · 已提交",
+      "note": "保留杆架与皮革开口，使用减面器原生传播的角点法线；同机位 RTX 前后对比通过。",
+      "before_triangles": 87064,
+      "after_triangles": 26118,
+      "accepted_mesh_trial": "0.3-native",
+      "collections": [
+        {
+          "id": "rtx",
+          "renderer": "Isaac Sim RTX",
+          "note": "Isaac Sim · RayTracedLighting · 同机位、同渲染设置的修改前后图。",
+          "views": [
+            {
+              "id": "three_quarter",
+              "label": "斜视",
+              "before": {
+                "src": "img/rtx/before/magazine_rack-three_quarter.png",
+                "sha256": "fc4d35845789d979ac8b1f0c2f71c811a02c7eb6456eede1a2f4ea1d26c5ceda",
+                "source_sha256": "a669bb4cea3fc270fe3ba9994758b8d19681d9583c9b621afdd3b44454f3f756"
+              },
+              "after": {
+                "src": "img/rtx/after/magazine_rack-three_quarter.png",
+                "sha256": "57c58b0fd069b20ed4a5aacf90af94d15f513b6b41756ff8848b2ff7e8751321",
+                "source_sha256": "cff2ad6004d7a2c9cb7c9a12552e421df5a0e4d24cee696f3378a90c81231c74"
+              },
+              "same_camera_verified": true
+            },
+            {
+              "id": "top",
+              "label": "俯视",
+              "before": {
+                "src": "img/rtx/before/magazine_rack-top.png",
+                "sha256": "c3db3b35e513aef649c3ec79589f578f35f41f1c2930018de4c94b6f533ec61a",
+                "source_sha256": "a669bb4cea3fc270fe3ba9994758b8d19681d9583c9b621afdd3b44454f3f756"
+              },
+              "after": {
+                "src": "img/rtx/after/magazine_rack-top.png",
+                "sha256": "62fad44679319b88eacd992c7cdac55bf4058743b5787919dda179474dd95a42",
+                "source_sha256": "cff2ad6004d7a2c9cb7c9a12552e421df5a0e4d24cee696f3378a90c81231c74"
+              },
+              "same_camera_verified": true
+            }
+          ]
+        },
+        {
+          "id": "blender",
+          "renderer": "Blender 辅助图",
+          "note": "Blender 辅助近景图。Isaac Sim 的实际材质效果见 RTX 图组。",
+          "views": [
+            {
+              "id": "front-textured",
+              "label": "正面 · 材质",
+              "before": {
+                "src": "img/blender/before/magazine_rack-before-front-textured.png",
+                "sha256": "47668685ddfb772db94242465854fe6207782bb205f45434a5351e0e6b346d6b"
+              },
+              "after": {
+                "src": "img/blender/after/magazine_rack-0.3-native-front-textured.png",
+                "sha256": "86740f5f6316e0edc53df5a007476162423f66bf53861c5a2f01da16efc435c5"
+              }
+            },
+            {
+              "id": "front-clay",
+              "label": "正面 · 无纹理",
+              "before": {
+                "src": "img/blender/before/magazine_rack-before-front-clay.png",
+                "sha256": "98be5fbc481623cb8d62def760982915d8857281d46e2cb6e29223592c77658d"
+              },
+              "after": {
+                "src": "img/blender/after/magazine_rack-0.3-native-front-clay.png",
+                "sha256": "5fc1733a219eb8f8c2d9018e75d9c9010be65549bed2f371fb4dda6eab90d289"
+              }
+            },
+            {
+              "id": "back-textured",
+              "label": "背面 · 材质",
+              "before": {
+                "src": "img/blender/before/magazine_rack-before-back-textured.png",
+                "sha256": "16d5f032e9189ec1a7d05b95fd53c26f6a6d6cde80a7cd7f2774db04abdb17bb"
+              },
+              "after": {
+                "src": "img/blender/after/magazine_rack-0.3-native-back-textured.png",
+                "sha256": "d230f393d274acb1fa100b7651873a898f0d74a69ddde9a11a03382f3e021398"
+              }
+            }
+          ]
+        }
+      ],
+      "accepted_source_commit": "c91c5e321fbfb1980f2fb56e2db7bef1a46a7511"
+    },
+    {
+      "id": "photo_frame_3",
+      "status": "accepted",
+      "status_label": "RTX 审阅通过 · 已提交",
+      "note": "木框法线图 4096² → 2048²，磁盘压缩文件大小 33.25 → 9.24 MiB。法线按向量过滤并重新归一化；相片内容和木纹颜色图保留。RTX 前后图已由主会话审阅通过。",
+      "before_triangles": null,
+      "after_triangles": null,
+      "accepted_mesh_trial": null,
+      "collections": [
+        {
+          "id": "rtx",
+          "renderer": "Isaac Sim RTX",
+          "note": "Isaac Sim · RayTracedLighting · 同机位、同渲染设置的修改前后图。",
+          "views": [
+            {
+              "id": "three_quarter",
+              "label": "斜视",
+              "before": {
+                "src": "img/rtx/before/photo_frame_3-three_quarter.png",
+                "sha256": "a7ec1bd2104864b6b9805b333b4eaa8a9abdbfcf29ba6f161e7755c35a5cac4f",
+                "source_sha256": "8cbabfd6cc9d9e9c0b79ba66ff097d345384b380b89b705a5ad58a740332f19a"
+              },
+              "after": {
+                "src": "img/rtx/after/photo_frame_3-three_quarter.png",
+                "sha256": "d7d11437a0cade24ccfe8147dffce16346e3d97266ce6b7fd05e3a0454f58d20",
+                "source_sha256": "247b7916f3e5af82ad17cfa88bfe13f6bbe5592fe0d95ea527637e5267454abb"
+              },
+              "same_camera_verified": true
+            },
+            {
+              "id": "top",
+              "label": "俯视",
+              "before": {
+                "src": "img/rtx/before/photo_frame_3-top.png",
+                "sha256": "5acea00a1e0916630950cc8150a8fb927c0247817e8daf071e700a50e5fa5e6f",
+                "source_sha256": "8cbabfd6cc9d9e9c0b79ba66ff097d345384b380b89b705a5ad58a740332f19a"
+              },
+              "after": {
+                "src": "img/rtx/after/photo_frame_3-top.png",
+                "sha256": "1c63a1b55fd543bf6955cb2bf4e9bba566a4e90fc425a933d7ed16600d8c4db0",
+                "source_sha256": "247b7916f3e5af82ad17cfa88bfe13f6bbe5592fe0d95ea527637e5267454abb"
+              },
+              "same_camera_verified": true
+            }
+          ]
+        }
+      ],
+      "accepted_source_commit": "7f34754408",
+      "material_sampling_and_other_fields_preserved": true,
+      "source_sha256": "247b7916f3e5af82ad17cfa88bfe13f6bbe5592fe0d95ea527637e5267454abb",
+      "material_changes": [
+        {
+          "method": "normal 2x2 box mip; normal vectors renormalized",
+          "before_dimensions": [
+            4096,
+            4096
+          ],
+          "after_dimensions": [
+            2048,
+            2048
+          ],
+          "before_bytes": 34867855,
+          "after_bytes": 9685575,
+          "after_sha256": "3111c8e74797cc5bd0d527d48a75ff8171da22d6ef0ccccb05b90509cfa94aa0"
+        }
+      ],
+      "compressed_active_texture_bytes": {
+        "before": 34867855,
+        "after": 9685575,
+        "scope": "wood_normal_only",
+        "originals_retained_on_disk": true
+      }
+    },
+    {
+      "id": "coffee_pods",
+      "status": "accepted",
+      "status_label": "RTX 审阅通过 · 已提交",
+      "note": "四张完整图集 4096² → 2048²，当前引用文件的磁盘压缩大小合计 16.31 → 2.76 MiB。保留 packed 通道顺序、raw 采样与 UV；颜色按线性光过滤，法线重新归一化。原图保留在磁盘上。",
+      "before_triangles": null,
+      "after_triangles": null,
+      "accepted_mesh_trial": null,
+      "collections": [
+        {
+          "id": "rtx",
+          "renderer": "Isaac Sim RTX",
+          "note": "Isaac Sim · RayTracedLighting · 同机位、同渲染设置的修改前后图。",
+          "views": [
+            {
+              "id": "three_quarter",
+              "label": "斜视",
+              "before": {
+                "src": "img/rtx/before/coffee_pods-three_quarter.png",
+                "sha256": "60aa74eec42476c4d3a9b8e9dd7356d6ee6bb2f1d7f45e17716a850e67dcfca9",
+                "source_sha256": "3e4a3dc22da4873063f685348e009fdf9b9de94024716e9a9a51c30e99aaef88"
+              },
+              "after": {
+                "src": "img/rtx/after/coffee_pods-three_quarter.png",
+                "sha256": "a8f16ba099f4c3b1a38bb7a1954e50d12ec9029929eaf25bf3179edf5c1011c5",
+                "source_sha256": "6eb702d07a4d64227fc46ab085978a35784eaef9947d8b3a1627c501221a0f6f"
+              },
+              "same_camera_verified": true
+            },
+            {
+              "id": "top",
+              "label": "俯视",
+              "before": {
+                "src": "img/rtx/before/coffee_pods-top.png",
+                "sha256": "65e4ab79d57c6a4fa10ec843e34626edcf89605c59ef7c1f16ac8de7b40b1bc2",
+                "source_sha256": "3e4a3dc22da4873063f685348e009fdf9b9de94024716e9a9a51c30e99aaef88"
+              },
+              "after": {
+                "src": "img/rtx/after/coffee_pods-top.png",
+                "sha256": "8227c8a50f3f60538082c7e2d284a7f1fbff6e12347871cceb616945ce1e55b6",
+                "source_sha256": "6eb702d07a4d64227fc46ab085978a35784eaef9947d8b3a1627c501221a0f6f"
+              },
+              "same_camera_verified": true
+            }
+          ]
+        }
+      ],
+      "accepted_source_commit": "7f34754408",
+      "material_sampling_and_other_fields_preserved": true,
+      "source_sha256": "6eb702d07a4d64227fc46ab085978a35784eaef9947d8b3a1627c501221a0f6f",
+      "material_changes": [
+        {
+          "method": "srgb 2x2 box mip",
+          "before_dimensions": [
+            4096,
+            4096
+          ],
+          "after_dimensions": [
+            2048,
+            2048
+          ],
+          "before_bytes": 340606,
+          "after_bytes": 72602,
+          "after_sha256": "975107e7e55d7dd86fe98d7acb2cb5be09cc258ac38ac07c3f5597c91609665f"
+        },
+        {
+          "method": "raw 2x2 box mip",
+          "before_dimensions": [
+            4096,
+            4096
+          ],
+          "after_dimensions": [
+            2048,
+            2048
+          ],
+          "before_bytes": 346386,
+          "after_bytes": 41605,
+          "after_sha256": "bb80604c02e00d0212b6c7cfee14165c3440e25cada0cf12732619ce9c7ccdce"
+        },
+        {
+          "method": "raw 2x2 box mip",
+          "before_dimensions": [
+            4096,
+            4096
+          ],
+          "after_dimensions": [
+            2048,
+            2048
+          ],
+          "before_bytes": 16076245,
+          "after_bytes": 2655696,
+          "after_sha256": "2ab9828b9321e2e466275e0ee9d8815750d58b5c8360465bf0d8141ea186365d"
+        },
+        {
+          "method": "normal 2x2 box mip; normal vectors renormalized",
+          "before_dimensions": [
+            4096,
+            4096
+          ],
+          "after_dimensions": [
+            2048,
+            2048
+          ],
+          "before_bytes": 340065,
+          "after_bytes": 123920,
+          "after_sha256": "abb7f8c92ba356ff6bd80abdddec9f891a213bf197b2819d75601197f9aa02b8"
+        }
+      ],
+      "compressed_active_texture_bytes": {
+        "before": 17103302,
+        "after": 2893823,
+        "scope": "four_active_maps",
+        "originals_retained_on_disk": true
+      }
+    },
+    {
+      "id": "record_player",
+      "status": "accepted",
+      "status_label": "RTX 审阅通过 · 已提交",
+      "note": "三张遗失原图未找到，现使用明确命名的本地替代贴图。黑色涂层采用金属度 0、粗糙度 46/255；金属件采用仓库已有的 1024² 拉丝钢粗糙度图。原有颜色和 shader 连接保留，替代图不代表恢复了原贴图。",
+      "before_triangles": null,
+      "after_triangles": null,
+      "accepted_mesh_trial": null,
+      "collections": [
+        {
+          "id": "rtx",
+          "renderer": "Isaac Sim RTX",
+          "note": "Isaac Sim · RayTracedLighting · 同机位、同渲染设置的修改前后图。",
+          "views": [
+            {
+              "id": "three_quarter",
+              "label": "斜视",
+              "before": {
+                "src": "img/rtx/before/record_player-three_quarter.png",
+                "sha256": "2719e15c0eaf08872e70301999e930b7ccae5cf69f3b0c5d7e8534c2bccf1396",
+                "source_sha256": "3a6e64e9007fb4d15c2327f7ca80ddcf70fdfb0bb5165dc0bfb75b72e1025c97"
+              },
+              "after": {
+                "src": "img/rtx/after/record_player-three_quarter.png",
+                "sha256": "29d26d7ed79c7e82e3132e72a5bd423e08575d44117a1586c9fd994cb9ef85e1",
+                "source_sha256": "0fb3f613f802c81a78fdc524cd5fc64d57ce0db28cdb779f4bede8fe9dd3e411"
+              },
+              "same_camera_verified": true
+            },
+            {
+              "id": "top",
+              "label": "俯视",
+              "before": {
+                "src": "img/rtx/before/record_player-top.png",
+                "sha256": "9e14e492e0a4efc50482747345d0cf18b9d8f3957fceaa8cdd56f27df03638ad",
+                "source_sha256": "3a6e64e9007fb4d15c2327f7ca80ddcf70fdfb0bb5165dc0bfb75b72e1025c97"
+              },
+              "after": {
+                "src": "img/rtx/after/record_player-top.png",
+                "sha256": "aa79faaa2d538a9d44633a7cfee38eb8e51926bfa5a49f24795d1e9125047338",
+                "source_sha256": "0fb3f613f802c81a78fdc524cd5fc64d57ce0db28cdb779f4bede8fe9dd3e411"
+              },
+              "same_camera_verified": true
+            }
+          ]
+        }
+      ],
+      "accepted_source_commit": "7f34754408",
+      "material_sampling_and_other_fields_preserved": true,
+      "source_sha256": "0fb3f613f802c81a78fdc524cd5fc64d57ce0db28cdb779f4bede8fe9dd3e411",
+      "material_changes": [
+        {
+          "method": "Authored replacement. Black coating: nonmetallic 0, roughness 46/255 (0.180392). Brushed metal: exact local existing stainless steel roughness map, decoded range 36..50/255. Existing diffuse, metallic=1 for brushed metal, shader connections and raw sampling preserved.",
+          "after_dimensions": [
+            1,
+            1
+          ],
+          "after_bytes": 67,
+          "before_exists": false,
+          "after_sha256": "eaa4a94ea300e0d2c775968cbe42f0b5b51ceafdeb73d64e9efddf6d4e880865"
+        },
+        {
+          "method": "Authored replacement. Black coating: nonmetallic 0, roughness 46/255 (0.180392). Brushed metal: exact local existing stainless steel roughness map, decoded range 36..50/255. Existing diffuse, metallic=1 for brushed metal, shader connections and raw sampling preserved.",
+          "after_dimensions": [
+            1,
+            1
+          ],
+          "after_bytes": 67,
+          "before_exists": false,
+          "after_sha256": "19a4f6066e7a0c4c70ee93fd7c24fd47ef61774f590b96ade02022f96b72da76"
+        },
+        {
+          "method": "Authored replacement. Black coating: nonmetallic 0, roughness 46/255 (0.180392). Brushed metal: exact local existing stainless steel roughness map, decoded range 36..50/255. Existing diffuse, metallic=1 for brushed metal, shader connections and raw sampling preserved.",
+          "after_dimensions": [
+            1024,
+            1024
+          ],
+          "after_bytes": 80387,
+          "before_exists": false,
+          "after_sha256": "3c1b604b892489880e5369733f20d25314f3bf8a9cc6c03d6da6230553994228"
+        }
+      ],
+      "replacement_provenance": "Authored local substitutes; missing original maps were not recovered."
+    }
+  ],
+  "cleanup": {
+    "status": "committed",
+    "sound_box": {
+      "before_triangles": 58084,
+      "after_triangles": 48233,
+      "removed_exact_zero_area": 9851
+    },
+    "table_fan": {
+      "before_triangles": 132390,
+      "after_triangles": 131478,
+      "removed_exact_zero_area": 912
+    },
+    "source_commit": "2f10c55819"
+  },
+  "constant_textures": {
+    "count": 25,
+    "status": "committed",
+    "status_label": "25 张全部验证通过 · 已提交",
+    "maps": [
+      {
+        "label": "part_00_Met.jpg",
+        "before_size": [
+          6637,
+          3337
+        ],
+        "after_size": [
+          1,
+          1
+        ],
+        "mode": "RGB",
+        "pixel": [
+          11,
+          11,
+          11
+        ],
+        "same_pixel_verified": true,
+        "status": "committed",
+        "source_commit": "2f10c55819"
+      },
+      {
+        "label": "record · Material.011_Metallic.jpg",
+        "before_size": [
+          2048,
+          2048
+        ],
+        "after_size": [
+          1,
+          1
+        ],
+        "mode": "L",
+        "pixel": 0,
+        "same_pixel_verified": true,
+        "status": "committed",
+        "source_commit": "2f10c55819"
+      },
+      {
+        "label": "black_patti · Material.011_Metallic.jpg",
+        "before_size": [
+          2048,
+          2048
+        ],
+        "after_size": [
+          1,
+          1
+        ],
+        "mode": "L",
+        "pixel": 0,
+        "same_pixel_verified": true,
+        "status": "committed",
+        "source_commit": "2f10c55819"
+      },
+      {
+        "label": "herwin · Material.011_Metallic.jpg",
+        "before_size": [
+          2048,
+          2048
+        ],
+        "after_size": [
+          1,
+          1
+        ],
+        "mode": "L",
+        "pixel": 0,
+        "same_pixel_verified": true,
+        "status": "committed",
+        "source_commit": "2f10c55819"
+      },
+      {
+        "label": "claxtonola · Material.011_Metallic.jpg",
+        "before_size": [
+          2048,
+          2048
+        ],
+        "after_size": [
+          1,
+          1
+        ],
+        "mode": "L",
+        "pixel": 0,
+        "same_pixel_verified": true,
+        "status": "committed",
+        "source_commit": "2f10c55819"
+      },
+      {
+        "label": "decca_blue · Material.011_Metallic.jpg",
+        "before_size": [
+          2048,
+          2048
+        ],
+        "after_size": [
+          1,
+          1
+        ],
+        "mode": "L",
+        "pixel": 0,
+        "same_pixel_verified": true,
+        "status": "committed",
+        "source_commit": "2f10c55819"
+      },
+      {
+        "label": "columbia · Material.011_Metallic.jpg",
+        "before_size": [
+          2048,
+          2048
+        ],
+        "after_size": [
+          1,
+          1
+        ],
+        "mode": "L",
+        "pixel": 0,
+        "same_pixel_verified": true,
+        "status": "committed",
+        "source_commit": "2f10c55819"
+      },
+      {
+        "label": "crown · Material.011_Metallic.jpg",
+        "before_size": [
+          2048,
+          2048
+        ],
+        "after_size": [
+          1,
+          1
+        ],
+        "mode": "L",
+        "pixel": 0,
+        "same_pixel_verified": true,
+        "status": "committed",
+        "source_commit": "2f10c55819"
+      },
+      {
+        "label": "electradisk · Material.011_Metallic.jpg",
+        "before_size": [
+          2048,
+          2048
+        ],
+        "after_size": [
+          1,
+          1
+        ],
+        "mode": "L",
+        "pixel": 0,
+        "same_pixel_verified": true,
+        "status": "committed",
+        "source_commit": "2f10c55819"
+      },
+      {
+        "label": "savoy · Material.011_Metallic.jpg",
+        "before_size": [
+          2048,
+          2048
+        ],
+        "after_size": [
+          1,
+          1
+        ],
+        "mode": "L",
+        "pixel": 0,
+        "same_pixel_verified": true,
+        "status": "committed",
+        "source_commit": "2f10c55819"
+      },
+      {
+        "label": "climax · Material.011_Metallic.jpg",
+        "before_size": [
+          2048,
+          2048
+        ],
+        "after_size": [
+          1,
+          1
+        ],
+        "mode": "L",
+        "pixel": 0,
+        "same_pixel_verified": true,
+        "status": "committed",
+        "source_commit": "2f10c55819"
+      },
+      {
+        "label": "decca_vintage · Material.011_Metallic.jpg",
+        "before_size": [
+          2048,
+          2048
+        ],
+        "after_size": [
+          1,
+          1
+        ],
+        "mode": "L",
+        "pixel": 0,
+        "same_pixel_verified": true,
+        "status": "committed",
+        "source_commit": "2f10c55819"
+      },
+      {
+        "label": "black_swan · Material.011_Metallic.jpg",
+        "before_size": [
+          2048,
+          2048
+        ],
+        "after_size": [
+          1,
+          1
+        ],
+        "mode": "L",
+        "pixel": 0,
+        "same_pixel_verified": true,
+        "status": "committed",
+        "source_commit": "2f10c55819"
+      },
+      {
+        "label": "excelsior · Material.011_Metallic.jpg",
+        "before_size": [
+          2048,
+          2048
+        ],
+        "after_size": [
+          1,
+          1
+        ],
+        "mode": "L",
+        "pixel": 0,
+        "same_pixel_verified": true,
+        "status": "committed",
+        "source_commit": "2f10c55819"
+      },
+      {
+        "label": "Board_Alpha.jpg",
+        "before_size": [
+          2048,
+          2048
+        ],
+        "after_size": [
+          1,
+          1
+        ],
+        "mode": "L",
+        "pixel": 255,
+        "same_pixel_verified": true,
+        "status": "committed",
+        "source_commit": "2f10c55819"
+      },
+      {
+        "label": "figures_Metallic.jpg",
+        "before_size": [
+          2048,
+          2048
+        ],
+        "after_size": [
+          1,
+          1
+        ],
+        "mode": "L",
+        "pixel": 0,
+        "same_pixel_verified": true,
+        "status": "committed",
+        "source_commit": "2f10c55819"
+      },
+      {
+        "label": "figures_Alpha.jpg",
+        "before_size": [
+          2048,
+          2048
+        ],
+        "after_size": [
+          1,
+          1
+        ],
+        "mode": "L",
+        "pixel": 255,
+        "same_pixel_verified": true,
+        "status": "committed",
+        "source_commit": "2f10c55819"
+      },
+      {
+        "label": "Wood_Roughness.jpg",
+        "before_size": [
+          2048,
+          2048
+        ],
+        "after_size": [
+          1,
+          1
+        ],
+        "mode": "L",
+        "pixel": 0,
+        "same_pixel_verified": true,
+        "status": "committed",
+        "source_commit": "2f10c55819"
+      },
+      {
+        "label": "DefaultMaterial_Metallic.jpg",
+        "before_size": [
+          2048,
+          2048
+        ],
+        "after_size": [
+          1,
+          1
+        ],
+        "mode": "L",
+        "pixel": 0,
+        "same_pixel_verified": true,
+        "status": "committed",
+        "source_commit": "2f10c55819"
+      },
+      {
+        "label": "chrome_BaseColor.jpg",
+        "before_size": [
+          2048,
+          2048
+        ],
+        "after_size": [
+          1,
+          1
+        ],
+        "mode": "RGB",
+        "pixel": [
+          233,
+          233,
+          235
+        ],
+        "same_pixel_verified": true,
+        "status": "committed",
+        "source_commit": "2f10c55819"
+      },
+      {
+        "label": "metal_black_diffuse.jpg",
+        "before_size": [
+          2048,
+          2048
+        ],
+        "after_size": [
+          1,
+          1
+        ],
+        "mode": "L",
+        "pixel": 0,
+        "same_pixel_verified": true,
+        "status": "committed",
+        "source_commit": "2f10c55819"
+      },
+      {
+        "label": "metal_white_diffuse.jpg",
+        "before_size": [
+          2048,
+          2048
+        ],
+        "after_size": [
+          1,
+          1
+        ],
+        "mode": "L",
+        "pixel": 255,
+        "same_pixel_verified": true,
+        "status": "committed",
+        "source_commit": "2f10c55819"
+      },
+      {
+        "label": "mug_set_Metallic.1001.jpg",
+        "before_size": [
+          2048,
+          2048
+        ],
+        "after_size": [
+          1,
+          1
+        ],
+        "mode": "L",
+        "pixel": 0,
+        "same_pixel_verified": true,
+        "status": "committed",
+        "source_commit": "c91c5e321fbfb1980f2fb56e2db7bef1a46a7511"
+      },
+      {
+        "label": "mug_set_Roughness.1001.jpg",
+        "before_size": [
+          2048,
+          2048
+        ],
+        "after_size": [
+          1,
+          1
+        ],
+        "mode": "L",
+        "pixel": 26,
+        "same_pixel_verified": true,
+        "status": "committed",
+        "source_commit": "c91c5e321fbfb1980f2fb56e2db7bef1a46a7511"
+      },
+      {
+        "label": "Remote_Remote_Set_Metallic.jpg",
+        "before_size": [
+          2048,
+          2048
+        ],
+        "after_size": [
+          1,
+          1
+        ],
+        "mode": "L",
+        "pixel": 0,
+        "same_pixel_verified": true,
+        "status": "committed",
+        "source_commit": "2f10c55819"
+      }
+    ]
+  },
+  "validation": [
+    "两个容器恢复各 73 个凸包；本轮可视修改前后，全场景物理与碰撞属性一致。",
+    "杯子 145,296 → 21,794 面；杂志架 87,064 → 26,118 面。拓扑、UV 与表面距离检查通过。",
+    "sound_box 删除 9,851 个、table_fan 删除 912 个严格零面积面，有效面的角点数据保持一致。",
+    "25 张恒定贴图已全部替换为 1×1 同像素图，颜色空间、通道与采样参数保留。",
+    "五个对象、十组成对 RTX 截图：源文件版本、图片哈希和前后机位核对通过。",
+    "原 converter 重新生成 split；29,089 项属性和 667 个材质绑定图检查通过，本轮网格与材质转换一致。",
+    "转换检查另有既存表示差异：茶桌固定关节的最大浮点数断裂阈值转成正无穷，两者均作为不可断裂阈值；本轮未修改此关节。",
+    "结构检查没有新增问题，既有的 118 条结构规则报告保持原状。本轮不代表全场景结构全部通过。"
+  ],
+  "partial_source_commits": {
+    "constant_23_maps_and_degenerate_cleanup": "2f10c55819",
+    "photo_coffee_record_materials": "7f34754408"
+  }
+}

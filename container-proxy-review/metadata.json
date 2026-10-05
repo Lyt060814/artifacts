@@ -82,5 +82,11 @@
     "texture_rgba8_base_gib_theoretical": 3.64,
     "texture_rgba8_mips_gib_theoretical": 4.86
   },
-  "validation_scope": "全场景Isaac Sim 600帧前后对照；原converter生成结果一致。独立支撑试验通过。此次未重新跑完整Isaac Lab环境，也未测量性能加速。"
+  "validation_scope": "全场景Isaac Sim 600帧前后对照；原converter生成结果一致。独立支撑试验通过。此次未重新跑完整Isaac Lab环境，也未测量性能加速。",
+  "archived": true,
+  "reverted_in_commit": "000f5bc000c6766ca9ba2492958b1153956db14e",
+  "current_container_hulls": {
+    "coffee_pods_bowl": 73,
+    "decorative_books_cylinder003": 73
+  }
 }

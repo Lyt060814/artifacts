@@ -1,0 +1,216 @@
+{
+  "name": "scene00202-visual-repairs",
+  "title": "scene002.02 · 可视模型修改前后对比",
+  "kind": "static",
+  "url": "scene00202-visual-repairs/",
+  "provisional": false,
+  "copied_at": "2026-10-05T12:36:39.515283+00:00",
+  "source_head": "c91c5e321fbfb1980f2fb56e2db7bef1a46a7511",
+  "source_scene_sha256": "",
+  "source_layer_manifest_sha256": "",
+  "snapshot_sha256": "9ce437cd24a7af717bb66591e7f27d94414c08fb31d30d667ac6351d20701df2",
+  "counts": {},
+  "views": 0,
+  "files": [
+    {
+      "path": "img/blender/after/magazine_rack-0.3-native-back-textured.png",
+      "sha256": "d230f393d274acb1fa100b7651873a898f0d74a69ddde9a11a03382f3e021398",
+      "bytes": 569365
+    },
+    {
+      "path": "img/blender/after/magazine_rack-0.3-native-front-clay.png",
+      "sha256": "5fc1733a219eb8f8c2d9018e75d9c9010be65549bed2f371fb4dda6eab90d289",
+      "bytes": 542398
+    },
+    {
+      "path": "img/blender/after/magazine_rack-0.3-native-front-textured.png",
+      "sha256": "86740f5f6316e0edc53df5a007476162423f66bf53861c5a2f01da16efc435c5",
+      "bytes": 571619
+    },
+    {
+      "path": "img/blender/after/mug-0.15-back-textured.png",
+      "sha256": "ddf46e1925c5e1315f8ec3a8e38c84b1a578d57206cd3f1660312c4110ba2d84",
+      "bytes": 509109
+    },
+    {
+      "path": "img/blender/after/mug-0.15-front-clay.png",
+      "sha256": "f15f82ed6e86bc686b303d57d3bdbc17eb32c3a73bea316d5ad4f60d881675e8",
+      "bytes": 497425
+    },
+    {
+      "path": "img/blender/after/mug-0.15-front-textured.png",
+      "sha256": "3d37e215434e52d1905b97c58a93c9a025647842e419b180637a3d2e5d3581ed",
+      "bytes": 527426
+    },
+    {
+      "path": "img/blender/after/mug-0.15-top-clay.png",
+      "sha256": "894eb8c9a5c0d34dcc0c2ae09af5d19ea75a82f01cca07a519546851baf07bfa",
+      "bytes": 501396
+    },
+    {
+      "path": "img/blender/after/mug-0.15-top-textured.png",
+      "sha256": "950e6e56a8a603652d462d95bee6858d713935be07fb2d819fea1aa402b09cf1",
+      "bytes": 508468
+    },
+    {
+      "path": "img/blender/before/magazine_rack-before-back-textured.png",
+      "sha256": "16d5f032e9189ec1a7d05b95fd53c26f6a6d6cde80a7cd7f2774db04abdb17bb",
+      "bytes": 568327
+    },
+    {
+      "path": "img/blender/before/magazine_rack-before-front-clay.png",
+      "sha256": "98be5fbc481623cb8d62def760982915d8857281d46e2cb6e29223592c77658d",
+      "bytes": 540977
+    },
+    {
+      "path": "img/blender/before/magazine_rack-before-front-textured.png",
+      "sha256": "47668685ddfb772db94242465854fe6207782bb205f45434a5351e0e6b346d6b",
+      "bytes": 569797
+    },
+    {
+      "path": "img/blender/before/mug-before-back-textured.png",
+      "sha256": "253d627f8ed94696f51a77d081e49f37a4fb368bb9bebfe09a32395f7127035b",
+      "bytes": 509484
+    },
+    {
+      "path": "img/blender/before/mug-before-front-clay.png",
+      "sha256": "00c041861f51c8f8d944983d1d338c7dd5b2902002d2668488a3e89cc9f0b668",
+      "bytes": 496605
+    },
+    {
+      "path": "img/blender/before/mug-before-front-textured.png",
+      "sha256": "d8a87a9dd7fa06385910855a9ea9ea5b236ac8acff175e9ae716f0800375d556",
+      "bytes": 527512
+    },
+    {
+      "path": "img/blender/before/mug-before-top-clay.png",
+      "sha256": "c965eaa995e99b33fa713c9d9ff175ebab7b1563f6934daed55112ded6241100",
+      "bytes": 501453
+    },
+    {
+      "path": "img/blender/before/mug-before-top-textured.png",
+      "sha256": "bc41b717af027d1ce2861cdae1ea3f57bddb1d0b0abe89a2be0369e3cce5fa1f",
+      "bytes": 507811
+    },
+    {
+      "path": "img/rtx/after/coffee_pods-three_quarter.png",
+      "sha256": "a8f16ba099f4c3b1a38bb7a1954e50d12ec9029929eaf25bf3179edf5c1011c5",
+      "bytes": 91451
+    },
+    {
+      "path": "img/rtx/after/coffee_pods-top.png",
+      "sha256": "8227c8a50f3f60538082c7e2d284a7f1fbff6e12347871cceb616945ce1e55b6",
+      "bytes": 134464
+    },
+    {
+      "path": "img/rtx/after/magazine_rack-three_quarter.png",
+      "sha256": "57c58b0fd069b20ed4a5aacf90af94d15f513b6b41756ff8848b2ff7e8751321",
+      "bytes": 132244
+    },
+    {
+      "path": "img/rtx/after/magazine_rack-top.png",
+      "sha256": "62fad44679319b88eacd992c7cdac55bf4058743b5787919dda179474dd95a42",
+      "bytes": 112481
+    },
+    {
+      "path": "img/rtx/after/mug-three_quarter.png",
+      "sha256": "0536b3ff08586de352ee7872f291682ed9445d65ab55faa6ec53d3509df8a319",
+      "bytes": 232362
+    },
+    {
+      "path": "img/rtx/after/mug-top.png",
+      "sha256": "e19a440e5fa1f2f47f70d65a9c099b90320f7938fb3cbf05c2e9ce6829c7dde6",
+      "bytes": 82279
+    },
+    {
+      "path": "img/rtx/after/photo_frame_3-three_quarter.png",
+      "sha256": "d7d11437a0cade24ccfe8147dffce16346e3d97266ce6b7fd05e3a0454f58d20",
+      "bytes": 147108
+    },
+    {
+      "path": "img/rtx/after/photo_frame_3-top.png",
+      "sha256": "1c63a1b55fd543bf6955cb2bf4e9bba566a4e90fc425a933d7ed16600d8c4db0",
+      "bytes": 151645
+    },
+    {
+      "path": "img/rtx/after/record_player-three_quarter.png",
+      "sha256": "29d26d7ed79c7e82e3132e72a5bd423e08575d44117a1586c9fd994cb9ef85e1",
+      "bytes": 116177
+    },
+    {
+      "path": "img/rtx/after/record_player-top.png",
+      "sha256": "aa79faaa2d538a9d44633a7cfee38eb8e51926bfa5a49f24795d1e9125047338",
+      "bytes": 227732
+    },
+    {
+      "path": "img/rtx/before/coffee_pods-three_quarter.png",
+      "sha256": "60aa74eec42476c4d3a9b8e9dd7356d6ee6bb2f1d7f45e17716a850e67dcfca9",
+      "bytes": 91444
+    },
+    {
+      "path": "img/rtx/before/coffee_pods-top.png",
+      "sha256": "65e4ab79d57c6a4fa10ec843e34626edcf89605c59ef7c1f16ac8de7b40b1bc2",
+      "bytes": 134411
+    },
+    {
+      "path": "img/rtx/before/magazine_rack-three_quarter.png",
+      "sha256": "fc4d35845789d979ac8b1f0c2f71c811a02c7eb6456eede1a2f4ea1d26c5ceda",
+      "bytes": 134346
+    },
+    {
+      "path": "img/rtx/before/magazine_rack-top.png",
+      "sha256": "c3db3b35e513aef649c3ec79589f578f35f41f1c2930018de4c94b6f533ec61a",
+      "bytes": 112748
+    },
+    {
+      "path": "img/rtx/before/mug-three_quarter.png",
+      "sha256": "ca4ab0d3d42c767fb7d079059840dd75f51809d08f47f793bf9d1f6909f2419b",
+      "bytes": 126074
+    },
+    {
+      "path": "img/rtx/before/mug-top.png",
+      "sha256": "b99744d2e16a68e22ae9a5d8ddc40524529923df289b1e3285103b42eb7578fd",
+      "bytes": 80826
+    },
+    {
+      "path": "img/rtx/before/photo_frame_3-three_quarter.png",
+      "sha256": "a7ec1bd2104864b6b9805b333b4eaa8a9abdbfcf29ba6f161e7755c35a5cac4f",
+      "bytes": 146221
+    },
+    {
+      "path": "img/rtx/before/photo_frame_3-top.png",
+      "sha256": "5acea00a1e0916630950cc8150a8fb927c0247817e8daf071e700a50e5fa5e6f",
+      "bytes": 151447
+    },
+    {
+      "path": "img/rtx/before/record_player-three_quarter.png",
+      "sha256": "2719e15c0eaf08872e70301999e930b7ccae5cf69f3b0c5d7e8534c2bccf1396",
+      "bytes": 114412
+    },
+    {
+      "path": "img/rtx/before/record_player-top.png",
+      "sha256": "9e14e492e0a4efc50482747345d0cf18b9d8f3957fceaa8cdd56f27df03638ad",
+      "bytes": 125596
+    },
+    {
+      "path": "index.html",
+      "sha256": "5363d9538714233c28911b56876e05f7a94afdc47103453475aeb15f8b8119ed",
+      "bytes": 7705
+    },
+    {
+      "path": "metadata.json",
+      "sha256": "893a8d6a735751ed589cbb498c632592cef2ae3cc4d91b3ddc55b6753ddb39d9",
+      "bytes": 31214
+    },
+    {
+      "path": "review.js",
+      "sha256": "763b537592c220f0fa01b9e54f07569f677a7ac2cba3ecfdf8a35736a835749c",
+      "bytes": 8133
+    },
+    {
+      "path": "styles.css",
+      "sha256": "32608e52e5f019c75fdc84c774ee61106d0567c441cc8577790493141c2d5df3",
+      "bytes": 8537
+    }
+  ]
+}

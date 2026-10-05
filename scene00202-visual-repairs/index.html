@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>scene002.02 · 可视模型修改审阅</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="review.js" defer></script>
+</head>
+<body>
+  <header class="masthead">
+    <a class="brand" href="#overview"><span class="brand-mark">02</span> SCENE REVIEW</a>
+    <a class="external" href="https://artifacts.yitongli14.com/scene00202-colliders/">全场景碰撞体展示 ↗</a>
+  </header>
+  <main>
+    <section class="intro" id="overview">
+      <p class="eyebrow">SCENE002.02 / VISUAL REPAIRS</p>
+      <h1>看变化，<br><span>再决定是否保留。</span></h1>
+      <p class="lead">对照杯口、把手、杆架轮廓和表面细节，审阅这轮可视网格与材质调整。</p>
+      <div class="status-line"><span id="status" class="badge ready">验证通过 · 已提交</span><span id="commit" class="version">版本 c91c5e321f</span></div>
+      <p class="scope-note">两个容器的碰撞体简化试验已回退：咖啡碗和装饰瓶各为 <strong>73 个凸包</strong>。本页这一轮只修改可视几何与材质，物理与碰撞体保持原样。</p>
+    </section>
+    <nav class="section-nav" aria-label="页内导航">
+      <a href="#mug">杯子</a><a href="#magazine-rack">杂志架</a><a href="#cleanup">零面积面</a><a href="#textures">恒定贴图</a><a href="#photo-frame">相框</a><a href="#coffee-pods">咖啡胶囊</a><a href="#record-player">唱片机</a><a href="#validation">验证</a>
+    </nav>
+    <div id="load-error" class="notice" role="alert" hidden>审阅数据未能加载。请通过静态网页服务打开此页面。</div>
+    <section class="review-section" id="mug" data-gallery="mug">
+      <div class="section-heading"><div><p class="eyebrow">01 / MESH</p><h2>杯子 <code>mug</code></h2></div><p class="metric" data-metric="mug">145,296 → 21,794 面</p></div>
+      <p class="section-copy">重点看杯口圆度、杯壁厚度、把手连接与近景法线。已完成减面与同机位 RTX 前后对照，下面可切换视角查看细节。</p>
+      <div class="gallery-host"></div>
+    </section>
+    <section class="review-section" id="magazine-rack" data-gallery="magazine_rack">
+      <div class="section-heading"><div><p class="eyebrow">02 / MESH</p><h2>杂志架 <code>magazine_rack</code></h2></div><p class="metric" data-metric="magazine_rack">87,064 → 26,118 面</p></div>
+      <p class="section-copy">重点看细杆截面、转角、皮革边缘与开口。对照同一渲染器、同一视角的图片。</p>
+      <div class="gallery-host"></div>
+    </section>
+    <section class="review-section" id="cleanup">
+      <div class="section-heading"><div><p class="eyebrow">03 / EXACT CLEANUP</p><h2>只删除面积严格为零的面</h2></div><span class="badge checked">复核通过 · 已提交</span></div>
+      <div class="cleanup-grid">
+        <article class="summary-card"><span class="object-name">sound_box</span><strong>9,851</strong><p>删除零面积三角面</p><div class="number-change">58,084 → 48,233 面</div><small>16 个可见网格已检查，11 个发生清理。</small></article>
+        <article class="summary-card"><span class="object-name">table_fan</span><strong>912</strong><p>删除零面积三角面</p><div class="number-change">132,390 → 131,478 面</div><small>10 个可见网格已检查，8 个发生清理。</small></article>
+      </div>
+      <p class="section-copy">源坐标精确面积判据，不使用小面积阈值。有效面的顺序与角点数据保持一致；顶点未焊接，格栅孔洞、UV 和法线接缝保留。此项没有单独的前后渲染对比。</p>
+    </section>
+    <section class="review-section" id="textures">
+      <div class="section-heading"><div><p class="eyebrow">04 / TEXTURE</p><h2>25 张恒定贴图，保留原像素</h2></div><span class="badge checked" id="texture-status">25 张验证通过 · 已提交</span></div>
+      <p class="section-copy">原图每个像素都相同，用 1×1 同像素图保留颜色、通道与采样语义。下面展示存储像素值；色块只是说明，不是最终材质渲染证据。</p>
+      <div class="table-wrap"><table><caption class="sr-only">恒定贴图尺寸、像素值和集成状态</caption><thead><tr><th>贴图 / 对象</th><th>原尺寸</th><th>目标</th><th>原像素 = 新像素</th><th>状态</th></tr></thead><tbody id="texture-rows"><tr><td colspan="5">贴图明细加载中</td></tr></tbody></table></div>
+    </section>
+    <section class="review-section" id="photo-frame" data-gallery="photo_frame_3">
+      <div class="section-heading"><div><p class="eyebrow">05 / MATERIAL</p><h2>相框 <code>photo_frame_3</code></h2></div><span class="badge checked" data-object-status="photo_frame_3">RTX 审阅通过 · 已提交</span></div>
+      <p class="section-copy" data-object-note="photo_frame_3">木框法线图 4096² → 2048²，磁盘压缩文件大小 33.25 → 9.24 MiB。法线按向量过滤并重新归一化；相片内容和木纹颜色图保留。RTX 前后图已由主会话审阅通过。</p>
+      <div class="gallery-host"></div>
+    </section>
+    <section class="review-section" id="coffee-pods" data-gallery="coffee_pods">
+      <div class="section-heading"><div><p class="eyebrow">06 / MATERIAL</p><h2>咖啡胶囊与碗 <code>coffee_pods</code></h2></div><span class="badge checked" data-object-status="coffee_pods">RTX 审阅通过 · 已提交</span></div>
+      <p class="section-copy" data-object-note="coffee_pods">四张完整图集 4096² → 2048²，当前引用文件的磁盘压缩大小合计 16.31 → 2.76 MiB。保留 packed 通道顺序、raw 采样与 UV；颜色按线性光过滤，法线重新归一化。原图保留在磁盘上。</p>
+      <div class="gallery-host"></div>
+    </section>
+    <section class="review-section" id="record-player" data-gallery="record_player">
+      <div class="section-heading"><div><p class="eyebrow">07 / MATERIAL</p><h2>唱片机 <code>record_player</code></h2></div><span class="badge checked" data-object-status="record_player">RTX 审阅通过 · 已提交</span></div>
+      <p class="section-copy" data-object-note="record_player">三张遗失原图未找到，现使用明确命名的本地替代贴图。黑色涂层采用金属度 0、粗糙度 46/255；金属件采用仓库已有的 1024² 拉丝钢粗糙度图。原有颜色和 shader 连接保留，替代图不代表恢复了原贴图。</p>
+      <div class="gallery-host"></div>
+    </section>
+    <section class="review-section verification" id="validation">
+      <p class="eyebrow">08 / VALIDATION</p><h2>本轮证据范围</h2>
+      <div id="validation-list"><p>可视网格、材质和转换一致性检查已完成，所有源资产修改已提交。</p></div>
+      <p class="fine-print">网格面数与贴图尺寸属于静态数据。本页不声称测得加载加速、显存下降或帧率提升。Blender 辅助图与 Isaac Sim RTX 图分开展示，不跨渲染器直接比较。</p>
+    </section>
+  </main>
+  <footer><span>scene002.02 · 可视修改审阅</span><a href="#overview">回到顶部 ↑</a></footer>
+  <dialog id="image-dialog" aria-labelledby="dialog-title">
+    <div class="dialog-bar"><p id="dialog-title"></p><div><button type="button" id="actual-size" aria-pressed="false">原图尺寸</button><button type="button" id="close-dialog" aria-label="关闭大图">关闭 ×</button></div></div>
+    <div class="dialog-canvas"><img id="dialog-image" alt=""></div>
+  </dialog>
+</body>
+</html>
