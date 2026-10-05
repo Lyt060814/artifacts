@@ -1,17 +1,16 @@
 {
   "schema": 1,
-  "recorded_at": "2026-10-05T07:33:15.448614+00:00",
+  "recorded_at": "2026-10-05T08:45:16.033296+00:00",
   "verified_source": {
-    "head": "6d5e69ad16a0372baaa86a6cf522d14b93136758",
+    "head": "078dfeee8d2fc01d8adad10cb0b45881391ff94c",
     "scene_sha256": "b8a98f0abec46b06cfb7291c17fb474adc5c8e5aab2a935946519ce31e9278e9",
-    "layer_manifest_sha256": "3afdbf9a470b19872fe190bf0b72bdd292f735007bd31f5599c7a06cc6f1e4dc"
+    "layer_manifest_sha256": "646e2e9ebba5892473c1207da49def296c21daab6474438cd0986c5d7cc2145f"
   },
   "renderer_sha256": "27a40e163128949a8bcc697727b36ffdb27786e66a829afbcdc7375adb986b51",
   "refresh": {
     "mode": "reuse",
     "objects": [
-      "table_light",
-      "floor_lamp"
+      "side_table_right"
     ],
     "changed_objects": [],
     "regenerated": [],

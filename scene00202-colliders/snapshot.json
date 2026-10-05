@@ -4,11 +4,11 @@
   "kind": "colliders",
   "url": "scene00202-colliders/",
   "provisional": false,
-  "copied_at": "2026-10-05T07:58:13.107631+00:00",
-  "source_head": "6d5e69ad16a0372baaa86a6cf522d14b93136758",
+  "copied_at": "2026-10-05T08:46:13.250185+00:00",
+  "source_head": "078dfeee8d2fc01d8adad10cb0b45881391ff94c",
   "source_scene_sha256": "b8a98f0abec46b06cfb7291c17fb474adc5c8e5aab2a935946519ce31e9278e9",
-  "source_layer_manifest_sha256": "3afdbf9a470b19872fe190bf0b72bdd292f735007bd31f5599c7a06cc6f1e4dc",
-  "snapshot_sha256": "18585c975e669c179f93dd391be1d207d5b20d11fbb4228667095580eee79ecd",
+  "source_layer_manifest_sha256": "646e2e9ebba5892473c1207da49def296c21daab6474438cd0986c5d7cc2145f",
+  "snapshot_sha256": "46629d2c113688c07033124161e15d1fde2a68ca0d61c1b7fbc550931d5a7fef",
   "counts": {
     "bodies": 364,
     "kinematic_bodies": 4,
@@ -34,13 +34,13 @@
     },
     {
       "path": "gallery.html",
-      "sha256": "8648f59b917d3b76c363525ac36fbc7bf119bc9fecf5031533e7a9832c4c2049",
+      "sha256": "7e174f78a9c099d9a7a90d08958fcd07c06fed5c851489d31180b0e5cfecb6c8",
       "bytes": 130722
     },
     {
       "path": "image_lineage.json",
-      "sha256": "224c171f8fbd57fe363bfbe3e7e19808339257d63d47481369adf51b3f856445",
-      "bytes": 229716
+      "sha256": "a81fb5495db18be75d32785fd8abb09b063130ed19955fb358da0e5d47dcdd8d",
+      "bytes": 229701
     },
     {
       "path": "img/chess_pieces_black_queen_low_001-collider.png",
@@ -2884,7 +2884,7 @@
     },
     {
       "path": "index.html",
-      "sha256": "91dc509d00ef511efd1d0343f83e8ce7de8a7d361eb1c8910a127c329bdf4c2b",
+      "sha256": "031197db908ee57809d240b9e8c3b01d0f712f4378fb42b1fe1a12b16487924c",
       "bytes": 175436
     },
     {
