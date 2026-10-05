@@ -8,16 +8,16 @@
       "kind": "colliders",
       "url": "scene00202-colliders/",
       "provisional": false,
-      "copied_at": "2026-10-05T08:46:13.250185+00:00",
-      "source_head": "078dfeee8d2fc01d8adad10cb0b45881391ff94c",
-      "source_scene_sha256": "b8a98f0abec46b06cfb7291c17fb474adc5c8e5aab2a935946519ce31e9278e9",
-      "source_layer_manifest_sha256": "646e2e9ebba5892473c1207da49def296c21daab6474438cd0986c5d7cc2145f",
-      "snapshot_sha256": "46629d2c113688c07033124161e15d1fde2a68ca0d61c1b7fbc550931d5a7fef",
+      "copied_at": "2026-10-05T11:25:48.251956+00:00",
+      "source_head": "ba7fec2beea862696786e5d3752197339cd44b1a",
+      "source_scene_sha256": "70c427f815515c0e434e55be2fe6abd09ce53d9f1b6d14655e25e880ec5d2f78",
+      "source_layer_manifest_sha256": "c3815c786fd725ab86d8664ad88ca1daad50dc2158ea90a4c5ba052720364ae3",
+      "snapshot_sha256": "1201ecc532202c08bc6872576cf887252951a3a10be352282e4aaeb68a97fa34",
       "counts": {
         "bodies": 364,
         "kinematic_bodies": 4,
-        "colliders": 1814,
-        "hulls": 1540,
+        "colliders": 1782,
+        "hulls": 1508,
         "raw_visible_mesh_colliders": 1,
         "hull_vertices_over_limit": 0,
         "visual_vertices": 1649682,
@@ -30,6 +30,20 @@
         "tea_leaf_objects": 48
       },
       "views": 142
+    },
+    {
+      "name": "container-proxy-review",
+      "title": "scene002.02 · 容器碰撞体前后对比",
+      "kind": "static",
+      "url": "container-proxy-review/",
+      "provisional": false,
+      "copied_at": "2026-10-05T11:30:47.001114+00:00",
+      "source_head": "ba7fec2beea862696786e5d3752197339cd44b1a",
+      "source_scene_sha256": "",
+      "source_layer_manifest_sha256": "",
+      "snapshot_sha256": "a22e14e1f92b231f5d2bfa51dde2be899f8377dd54a6e2de99fca1c4b164761f",
+      "counts": {},
+      "views": 0
     }
   ]
 }

@@ -1,0 +1,76 @@
+{
+  "name": "container-proxy-review",
+  "title": "scene002.02 · 容器碰撞体前后对比",
+  "kind": "static",
+  "url": "container-proxy-review/",
+  "provisional": false,
+  "copied_at": "2026-10-05T11:30:47.001114+00:00",
+  "source_head": "ba7fec2beea862696786e5d3752197339cd44b1a",
+  "source_scene_sha256": "",
+  "source_layer_manifest_sha256": "",
+  "snapshot_sha256": "a22e14e1f92b231f5d2bfa51dde2be899f8377dd54a6e2de99fca1c4b164761f",
+  "counts": {},
+  "views": 0,
+  "files": [
+    {
+      "path": "img/after/coffee_pods_bowl-collider.png",
+      "sha256": "3acbd57b7f045cce60abcd15560a05cc7b002c2ccef479465dffe9366e21cdbf",
+      "bytes": 28673
+    },
+    {
+      "path": "img/after/coffee_pods_bowl-overlay.png",
+      "sha256": "b9b1bacbf79bba44d28bffc29dc35b38c7a86d285239b7765761af32bfb9c425",
+      "bytes": 77543
+    },
+    {
+      "path": "img/after/decorative_books_cylinder003-collider.png",
+      "sha256": "a6935c6dd1d8c4e93714087ecac068c4a9be9d9c61d9fc1c723c2af020e169bf",
+      "bytes": 23092
+    },
+    {
+      "path": "img/after/decorative_books_cylinder003-overlay.png",
+      "sha256": "a2b19b0a5489575f6b797e9caf030d8f93c0afc93a6589a2eaf93cc8ed64101f",
+      "bytes": 79996
+    },
+    {
+      "path": "img/before/coffee_pods_bowl-collider.png",
+      "sha256": "2143b0a3eea85084265b5b58550abaae19ce315a078fd9d6e27e5f0ec5570b79",
+      "bytes": 28164
+    },
+    {
+      "path": "img/before/coffee_pods_bowl-overlay.png",
+      "sha256": "5d982328d2e86c0a379478018ba9956bf73e83ab977d67a6212558fdeabb74c7",
+      "bytes": 75701
+    },
+    {
+      "path": "img/before/decorative_books_cylinder003-collider.png",
+      "sha256": "1468eb39b05ae9833b969304c86419d106f18d0e82d138770df0d542e6fb6361",
+      "bytes": 16054
+    },
+    {
+      "path": "img/before/decorative_books_cylinder003-overlay.png",
+      "sha256": "63ba304a8908e177cf7cea8aa2d1e0561d1a282404a61311ad8a36480cd68328",
+      "bytes": 70398
+    },
+    {
+      "path": "index.html",
+      "sha256": "19008ce99d6ea04c038e56483f8cd2712e9fe0b8ac58019c3b74adca9b14bf3d",
+      "bytes": 8049
+    },
+    {
+      "path": "metadata.json",
+      "sha256": "03723ac0f6ff1b227aa3aa811433ded39cb3ab1923799e683e3864d46eb28ebe",
+      "bytes": 3314
+    },
+    {
+      "path": "review.js",
+      "sha256": "1bf32f548f4944819729f7859b97e6d8d7eca9bbc9d0a19a8821b82dbbcb8243",
+      "bytes": 9015
+    },
+    {
+      "path": "styles.css",
+      "sha256": "1848777a3d994f16b5f1fec52c380242f16833335c40ef168bef3bd6b736dd51",
+      "bytes": 8486
+    }
+  ]
+}

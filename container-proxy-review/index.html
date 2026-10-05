@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="application-name" content="container-proxy-review">
+  <meta name="description" content="scene002.02 两个容器的碰撞代理前后对比与可视模型检查。">
+  <title>容器碰撞代理对比 · scene002.02</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="review.js" defer></script>
+</head>
+<body>
+  <div class="page">
+    <header class="masthead">
+      <a class="brand" href="https://artifacts.yitongli14.com/scene00202-colliders/">SCENE <span>002.02</span></a>
+      <a class="back-link" href="https://artifacts.yitongli14.com/scene00202-colliders/">查看全场景展示 <span aria-hidden="true">↗</span></a>
+    </header>
+    <main>
+      <section class="hero" aria-labelledby="page-title">
+        <div class="eyebrow">碰撞代理 · 前后对比</div>
+        <div class="hero-title"><h1 id="page-title">两个容器，<br class="mobile-break">碰撞代理前后对比。</h1><span class="status-pill" id="page-status">已更新 · 可对比</span></div>
+        <p class="lead">并排检查咖啡胶囊碗与装饰瓶的内腔、开口和支撑面。保留容器的功能，再看分块数量。</p>
+        <div class="provenance"><span>修改前 <code id="baseline-commit">320ea16630</code></span><span id="after-commit">修改后 ba7fec2bee</span></div>
+      </section>
+      <aside class="notice" id="pending-notice" hidden><span class="notice-dot" aria-hidden="true"></span><p>目前仅有修改前的已确认数据。修改后图片、统计和检查结果尚待更新。</p></aside>
+      <nav class="section-nav" aria-label="页面章节"><a href="#coffee_pods">咖啡胶囊碗</a><a href="#decorative_books">装饰瓶</a><a href="#visual-cost">可视模型检查</a></nav>
+      <div id="reviews"><section id="coffee_pods" class="review-section"></section><section id="decorative_books" class="review-section"></section></div>
+      <noscript><section class="noscript"><h2>修改前视图</h2><p>两个容器的修改已验证通过。启用 JavaScript 可对比修改前后并查看统计。</p><img src="img/before/coffee_pods_bowl-overlay.png" alt="咖啡胶囊碗修改前的代理叠加视图" width="1000" height="1000"><img src="img/before/decorative_books_cylinder003-overlay.png" alt="装饰瓶修改前的代理叠加视图" width="1000" height="1000"></section></noscript>
+      <section class="cost-section" id="visual-cost" aria-labelledby="cost-title">
+        <div class="section-heading"><div><div class="eyebrow">独立的只读检查</div><h2 id="cost-title">可视模型，还有哪些值得精简？</h2></div><span class="small-label">尚未修改</span></div>
+        <p class="section-intro">碰撞代理与可视模型是两份不同的几何。下面是可测量的优化候选，不能直接推算帧率或加载时间。</p>
+        <div class="table-scroll"><table><caption class="sr-only">可视模型检查的主要发现与建议</caption><thead><tr><th scope="col">项目</th><th scope="col">实测事实</th><th scope="col">建议</th></tr></thead><tbody id="cost-rows"></tbody></table></div>
+        <p class="cost-note" id="texture-estimate"></p>
+        <p class="cost-note">record_player 的3条贴图文件引用找不到文件。静态材质连接图已检查，尚未用渲染复现画面故障；这属于检查发现。</p>
+      </section>
+      <section class="reading-notes" aria-labelledby="notes-title"><h2 id="notes-title">如何读这些对比</h2><div class="note-grid"><p><strong>图片是代理检查视图。</strong>彩色分块表示 authored 碰撞代理，叠加视图用于检查与可视表面的关系；这些图片不是 RTX 材质渲染。</p><p><strong>数量是结构统计。</strong>顶点数是各凸包顶点数量的总和，按块累加；它不是最终 GPU cook 结果。片数或顶点数减少，也不等于已测得运行加速。</p><p><strong>最终结果以验证为准。</strong>修改后的 cook、settle 与源场景/转换结果一致性状态，会随已确认的结果一起更新。</p></div></section>
+    </main>
+    <footer><span>scene002.02 / container-proxy-review</span><span id="updated-at">已更新至 ba7fec2bee</span></footer>
+  </div>
+  <dialog id="image-dialog" aria-labelledby="dialog-title"><div class="dialog-top"><p id="dialog-title"></p><button class="dialog-close" type="button" aria-label="关闭大图">关闭 <span aria-hidden="true">×</span></button></div><img id="dialog-image" alt=""><p class="dialog-hint">按 Esc 关闭</p></dialog>
+  <script type="application/json" id="review-metadata">
+{
+  "schema_version": 1,
+  "page": "container-proxy-review",
+  "status": "ready",
+  "baseline_commit": "320ea166308dbbcb9110c2cc5f4502b12b3bdd9e",
+  "after_commit": "ba7fec2beea862696786e5d3752197339cd44b1a",
+  "updated_at": "2026-10-05 19:24 HKT",
+  "images": "authored_collider_inspection",
+  "sections": [
+    {
+      "id": "coffee_pods",
+      "stem": "coffee_pods_bowl",
+      "title": "咖啡胶囊碗",
+      "description": "观察碗口、内腔、底面与支撑轮廓。统计仅包含碗，不含里面的18个胶囊。",
+      "status": "ready",
+      "before": {
+        "shapes": 73,
+        "convex_hulls": 73,
+        "native_shapes": 0,
+        "hull_vertices_total": 1216,
+        "hull_vertices_max": 64,
+        "source_points_total": 1216,
+        "sha256": "3e4a3dc22da4873063f685348e009fdf9b9de94024716e9a9a51c30e99aaef88"
+      },
+      "after": {
+        "shapes": 61,
+        "convex_hulls": 61,
+        "native_shapes": 0,
+        "hull_vertices_total": 1120,
+        "hull_vertices_max": 64,
+        "source_points_total": 1120,
+        "sha256": "7b564cc39f867dd6bef4abaf86eae656c763bc7614c2cb74380c445a42a54921"
+      },
+      "validation": {
+        "gpu_cook": "passed",
+        "settle": "passed",
+        "source_split": "passed"
+      },
+      "review_note": "保留碗口、底面和中上层；采样内腔容量约减少0.17%，下层局部内半径最多减少2.05mm。49块试验对胶囊的启动扰动更大，最终采用61块。"
+    },
+    {
+      "id": "decorative_books",
+      "stem": "decorative_books_cylinder003",
+      "title": "装饰瓶 · Cylinder_003",
+      "description": "观察瓶口与内壁的贴合程度。统计仅包含这个容器，不含书本、蜡烛和装饰杆。",
+      "status": "ready",
+      "before": {
+        "shapes": 73,
+        "convex_hulls": 73,
+        "native_shapes": 0,
+        "hull_vertices_total": 624,
+        "hull_vertices_max": 48,
+        "source_points_total": 624,
+        "sha256": "74a1bddb9e88a1faeb08ff0b9987f9e4d054dfdd23e9e8fd5504c6ec1c53aa79"
+      },
+      "after": {
+        "shapes": 53,
+        "convex_hulls": 53,
+        "native_shapes": 0,
+        "hull_vertices_total": 848,
+        "hull_vertices_max": 48,
+        "source_points_total": 848,
+        "sha256": "986cbeca329a489fb2a7152eebdfca0ac7c81122d975b9615591dc8419adaaca"
+      },
+      "validation": {
+        "gpu_cook": "passed",
+        "settle": "passed",
+        "source_split": "passed"
+      },
+      "review_note": "保留原瓶口和底面；采样内腔容量约减少0.26%，局部贴合略粗。凸包顶点624→848，块数减少不能直接说明运行更快。"
+    }
+  ],
+  "visual_audit": {
+    "baseline_commit": "320ea166308dbbcb9110c2cc5f4502b12b3bdd9e",
+    "scene_triangle_estimate": 2021506,
+    "mug_triangles": 145296,
+    "magazine_rack_triangles": 87064,
+    "constant_large_maps": 25,
+    "record_player_missing_maps": 3,
+    "photo_frame_normal_resolution": "4096 × 4096",
+    "photo_frame_normal_disk_mib": 33.25,
+    "texture_rgba8_base_gib_theoretical": 3.64,
+    "texture_rgba8_mips_gib_theoretical": 4.86
+  },
+  "validation_scope": "全场景Isaac Sim 600帧前后对照；原converter生成结果一致。独立支撑试验通过。此次未重新跑完整Isaac Lab环境，也未测量性能加速。"
+}
+  </script>
+</body>
+</html>
