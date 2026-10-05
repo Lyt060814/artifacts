@@ -1,0 +1,1243 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='4' y='4' width='24' height='24' rx='5' fill='%23666'/%3E%3C/svg%3E"><title>当前源几何 · 全分辨率图库</title><style>@font-face {
+  font-family: 'Noto Sans SC';
+  font-style: normal;
+  font-weight: 400;
+  src: url(noto-sc-0.woff) format('woff');
+}
+@font-face {
+  font-family: 'Noto Sans SC';
+  font-style: normal;
+  font-weight: 500;
+  src: url(noto-sc-1.woff) format('woff');
+}
+:root {
+  color-scheme: light dark;
+  background-color: var(
+    --background,
+    var(--color-background-primary, light-dark(rgb(255 255 255), rgb(24 24 24)))
+  ) !important;
+
+  /* Agent-facing contract; keep in sync with SKILL.md. */
+  --background: var(
+    --color-background-primary,
+    light-dark(rgb(255 255 255), rgb(24 24 24))
+  );
+  --foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --card: color-mix(in oklab, var(--foreground) 5%, var(--background));
+  --card-foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --popover: var(
+    --color-background-secondary,
+    light-dark(rgb(255 255 255), rgb(45 45 45))
+  );
+  --popover-foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --primary: var(
+    --color-text-info,
+    light-dark(rgb(51 156 255), rgb(131 195 255))
+  );
+  --primary-foreground: var(
+    --color-text-inverse,
+    light-dark(rgb(255 255 255), rgb(13 13 13))
+  );
+  --secondary: var(
+    --color-background-secondary,
+    light-dark(rgb(255 255 255 / 96%), rgb(54 54 54 / 96%))
+  );
+  --secondary-foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --muted: color-mix(in srgb, var(--foreground) 10%, transparent);
+  --muted-foreground: var(
+    --color-text-secondary,
+    light-dark(rgb(26 28 31 / 49.4%), rgb(255 255 255 / 49.8%))
+  );
+  --accent: var(
+    --color-background-info,
+    light-dark(rgb(229 242 255), rgb(13 39 63))
+  );
+  --accent-foreground: var(
+    --color-text-info,
+    light-dark(rgb(51 156 255), rgb(131 195 255))
+  );
+  --destructive: var(
+    --color-text-warning,
+    light-dark(rgb(226 85 7), rgb(255 133 73))
+  );
+  --border: var(
+    --color-border-secondary,
+    light-dark(rgb(26 28 31 / 8%), rgb(255 255 255 / 8.2%))
+  );
+  --input: var(
+    --color-border-primary,
+    light-dark(
+      rgb(26 28 31 / 11.8%),
+      color-mix(in oklab, rgb(0 0 0) 10%, transparent)
+    )
+  );
+  --ring: var(
+    --color-ring-primary,
+    light-dark(rgb(51 156 255), rgb(131 195 255 / 76%))
+  );
+  --font-size-base: var(--font-text-md-size, 14px);
+  --blue: light-dark(rgb(51 156 255), rgb(51 156 255));
+  --orange: light-dark(rgb(226 85 7), rgb(251 106 34));
+  --green: light-dark(rgb(0 162 64), rgb(64 201 119));
+  --red: light-dark(rgb(224 46 42), rgb(255 103 100));
+  --purple: light-dark(rgb(146 79 247), rgb(173 123 249));
+  --yellow: light-dark(rgb(255 195 0), rgb(255 210 64));
+  --viz-series-1: var(--primary);
+  --viz-series-2: light-dark(rgb(243 136 59), rgb(245 154 86));
+  --viz-series-3: light-dark(rgb(93 201 119), rgb(116 213 139));
+  --viz-series-4: light-dark(rgb(235 119 177), rgb(240 143 192));
+  --viz-series-5: light-dark(rgb(155 121 236), rgb(170 145 239));
+  --viz-series-6: light-dark(rgb(58 185 177), rgb(90 203 194));
+
+  /* Internal implementation variables; not part of the agent contract. */
+  --font-sans: -apple-system, system-ui, "Segoe UI", sans-serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono",
+    monospace;
+  --font-size-normal: max(11px, var(--font-size-base));
+  --font-size-tooltip: calc(var(--font-size-base) - 1px);
+  --font-size-small: max(11px, calc(var(--font-size-base) - 2px));
+  --font-size-h1: calc(var(--font-size-normal) * 1.7142857143);
+  --font-size-h2: calc(var(--font-size-normal) * 1.4285714286);
+  --font-size-h3: calc(var(--font-size-normal) * 1.2857142857);
+  --font-weight-normal: 430;
+  --font-weight-medium: 500;
+  --icon-size: 16px;
+  --line-height-normal: calc(var(--font-size-normal) * 1.5);
+  --line-height-tooltip: calc(var(--font-size-tooltip) * 1.4285714286);
+  --line-height-small: calc(var(--font-size-small) + 4px);
+  --corner-shape: round;
+  --radius: var(--border-radius-lg, 10px);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-2xl: calc(var(--radius) * 1.6);
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 2px -1px rgb(0 0 0 / 8%);
+  --checkmark-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 17 17'%3E%3Cpath d='M12.8961 3.64101C13.1297 3.41418 13.4984 3.37523 13.7779 3.56581C14.0571 3.75635 14.1554 4.11331 14.0299 4.41347L13.9615 4.53847L7.71151 13.7045C7.59411 13.8767 7.4063 13.9877 7.19881 14.0072C6.99136 14.0267 6.78564 13.9533 6.63826 13.806L2.88826 10.056L2.79842 9.9457C2.6192 9.67407 2.64927 9.30496 2.88826 9.06581C3.12738 8.82669 3.49647 8.79676 3.76815 8.97597L3.8785 9.06581L7.03084 12.2182L12.8053 3.74941L12.8961 3.64101Z'/%3E%3C/svg%3E");
+
+  /* Legacy aliases; not part of the current agent contract. */
+  --viz-bg: transparent;
+  --viz-panel: var(--card);
+  --viz-border: var(--border);
+  --viz-text: var(--foreground);
+  --viz-muted: var(--muted-foreground);
+  --viz-accent: var(--primary);
+  --viz-accent-text: var(--primary-foreground);
+  --viz-accent-bg: var(--accent);
+  --viz-font-size: var(--font-size-base);
+  --viz-warning: var(--destructive);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html > body {
+  /* Preserve MCP aliases for older inline renderers without creating :root cycles. */
+  --color-background-primary: var(
+    --background,
+    light-dark(rgb(255 255 255), rgb(24 24 24))
+  );
+  --color-text-primary: var(
+    --foreground,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --color-border-secondary: var(
+    --border,
+    light-dark(rgb(26 28 31 / 8%), rgb(255 255 255 / 8.2%))
+  );
+
+  margin: 0;
+  padding: var(--visualize-paint-gutter, 0px);
+  color: var(--foreground);
+  background: transparent !important;
+  font-family: var(--font-sans) !important;
+  font-size: var(--font-size-normal);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-normal);
+}
+
+.cursor-interaction {
+  cursor: var(--cursor-interaction, pointer);
+}
+
+a {
+  color: color-mix(in srgb, var(--viz-accent) 80%, var(--viz-text) 20%);
+  cursor: var(--cursor-interaction, pointer);
+  font-weight: var(--font-weight-medium, 500);
+  text-decoration: none;
+  text-underline-offset: 2px;
+}
+
+a:is(:hover, :focus-visible) {
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+  text-decoration-thickness: 0.5px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-block: 0;
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.3;
+}
+
+b,
+strong,
+th {
+  font-weight: var(--font-weight-medium);
+}
+
+code:not(pre code) {
+  display: inline;
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+  corner-shape: var(--corner-shape);
+  background: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  overflow-wrap: anywhere;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  word-break: break-word;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--foreground);
+  font: inherit;
+  text-align: start;
+}
+
+.table :is(th, td) {
+  padding-block: 10px;
+  padding-inline: 0 24px;
+  overflow-wrap: anywhere;
+  border-bottom: 1px solid var(--border);
+  text-align: start;
+  vertical-align: top;
+}
+
+.table-responsive > .table :is(th, td) {
+  overflow-wrap: break-word;
+}
+
+.table :is(th, td):last-child {
+  padding-inline-end: 0;
+}
+
+.table :is(caption, thead th) {
+  font-weight: 600;
+}
+
+.table thead th {
+  padding-block: 8px;
+  border-bottom-color: color-mix(in srgb, var(--foreground) 16%, transparent);
+}
+
+.table tbody tr:last-child :is(th, td) {
+  border-bottom: 0;
+}
+
+.table.table-sm :is(th, td) {
+  padding-block: 6px;
+}
+
+.table.table-sm :is(th, td):not(:last-child) {
+  padding-inline-end: 16px;
+}
+
+.table :is(.text-end, [align="right"]) {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+.table :is(.text-center, [align="center"]) {
+  text-align: center;
+}
+
+.table .text-nowrap {
+  white-space: nowrap;
+}
+
+#widget {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  padding: 0;
+  background: transparent !important;
+}
+
+.card {
+  min-width: 0;
+  padding: 12px;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  border-radius: var(--radius-2xl);
+  corner-shape: var(--corner-shape);
+  color: var(--card-foreground);
+  background: var(--card);
+}
+
+.widget {
+  min-width: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--radius-lg);
+  corner-shape: var(--corner-shape);
+  box-shadow: 0 0 0 0.5px var(--border-strong, var(--border));
+  color: var(--foreground);
+  background: var(--background);
+}
+
+#widget > :not(.card, .widget, .progress) {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.tooltip {
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  width: max-content;
+  max-width: min(
+    20rem,
+    var(--tooltip-available-width, calc(100vw - 10px)),
+    calc(100vw - 10px)
+  );
+  max-height: min(
+    var(--tooltip-available-height, calc(100vh - 10px)),
+    calc(100vh - 10px)
+  );
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  corner-shape: var(--corner-shape);
+  color: var(--popover-foreground);
+  background: var(--popover);
+  box-shadow: none;
+  font-size: var(--font-size-tooltip);
+  line-height: var(--line-height-tooltip);
+  overflow-wrap: break-word;
+  white-space: normal;
+  pointer-events: none;
+  user-select: none;
+}
+
+.viz-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(max(180px, 24%), 1fr));
+  gap: 10px;
+}
+
+.viz-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.viz-stat-value {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+.viz-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+hr {
+  width: 100%;
+  height: 1px;
+  margin-block: 6px;
+  border: 0;
+  background: var(--border);
+}
+
+.nav {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 4px;
+}
+
+.progress {
+  display: flex;
+  height: 8px;
+  margin-block: calc((var(--line-height-normal, 1.5em) - 8px) / 2);
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--muted);
+}
+
+.progress-bar:only-child {
+  border-radius: var(--radius-full);
+}
+
+.progress-bar {
+  height: 100%;
+  flex-shrink: 0;
+  border: 0;
+  background: var(--viz-series-1);
+}
+
+.viz-badge {
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  color: var(--accent-foreground);
+  background: var(--accent);
+  font-weight: var(--font-weight-medium);
+}
+
+small,
+.text-small,
+.viz-badge {
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.text-muted {
+  color: var(--muted-foreground);
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.viz-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.viz-controls > .form-label {
+  display: grid;
+  min-width: min(100%, 260px);
+  flex: 1 1 280px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 2px 12px;
+  margin-bottom: 0;
+}
+
+.viz-controls > .form-label > :is(.form-control, .form-range, .form-select) {
+  grid-column: 1 / -1;
+}
+
+.btn,
+.nav-link,
+.form-check-input,
+.form-control,
+.form-range,
+.form-select {
+  font: inherit;
+}
+
+.btn,
+.nav-link {
+  appearance: button;
+  display: inline-flex;
+  inline-size: fit-content;
+  max-inline-size: 100%;
+  min-height: 28px;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0 8px;
+  -webkit-app-region: no-drag;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  corner-shape: var(--corner-shape);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  cursor: var(--cursor-interaction, pointer);
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+.btn:is(.btn-block, .viz-tile) {
+  inline-size: 100%;
+}
+
+.btn.viz-tile {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+a.btn {
+  cursor: var(--cursor-interaction, pointer);
+  text-decoration: none;
+}
+
+.btn:not(:disabled):hover,
+.nav-link:not(:disabled):not([aria-disabled="true"]):hover {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.btn-primary {
+  border-color: transparent;
+  color: var(--primary-foreground);
+  background: var(--foreground);
+  background-clip: padding-box;
+}
+
+.btn-primary .text-muted {
+  color: color-mix(in srgb, var(--primary-foreground) 50%, transparent);
+}
+
+.btn-primary:not(:disabled):hover {
+  background: color-mix(in srgb, var(--foreground) 80%, transparent);
+  background-clip: padding-box;
+}
+
+.btn-ghost {
+  border-color: transparent;
+  color: var(--muted-foreground);
+  background: transparent;
+}
+
+.btn-ghost:not(:disabled):hover {
+  color: var(--foreground);
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.nav-pills .nav-link {
+  min-width: 0;
+  border-color: transparent;
+  color: var(--muted-foreground);
+  background: transparent;
+}
+
+.nav-justified .nav-link {
+  flex: 1 1 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+.nav-pills .nav-link.active {
+  color: var(--foreground);
+  background: var(--muted);
+}
+
+/* Shared preview chrome; product styles stay inside each variant. */
+.viz-dotted-background {
+  background-image: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--foreground) 14%, transparent) 0.8px,
+    transparent 0.8px
+  );
+  background-position: center;
+  background-size: 16px 16px;
+}
+
+.viz-carousel {
+  position: relative;
+  min-width: 0;
+}
+
+.viz-carousel:has(> .viz-carousel-controls) {
+  min-height: calc(60px + var(--viz-carousel-picker-height, 0px));
+  padding-bottom: 60px;
+}
+
+.viz-carousel > [data-variant][hidden] {
+  display: none !important;
+}
+
+.viz-carousel > [data-variant] {
+  isolation: isolate;
+}
+
+.viz-carousel-controls {
+  --viz-carousel-hover: light-dark(
+    color-mix(in srgb, var(--foreground) 5.4%, transparent),
+    color-mix(in srgb, var(--foreground) 7.8%, transparent)
+  );
+  position: absolute;
+  z-index: 2;
+  bottom: 8px;
+  left: 50%;
+  display: flex;
+  width: max-content;
+  /* Leave room for the host's design-controls launcher at the trailing edge. */
+  max-width: calc(100% - 96px);
+  align-items: center;
+  gap: 0;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-sans);
+  /* Match the settings dropdown chrome independently of the content font size. */
+  font-size: 13px;
+  font-weight: var(--font-weight-normal);
+  line-height: 18px;
+  transform: translateX(-50%);
+  user-select: none;
+}
+
+/* Keep authored mockup button styles out of the shared carousel chrome. */
+.viz-carousel-controls button,
+.viz-carousel-picker > summary {
+  display: flex !important;
+  height: auto !important;
+  min-height: 30px;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 4px;
+  padding: 0 6px !important;
+  -webkit-app-region: no-drag;
+  border: 0 !important;
+  border-radius: 14px !important;
+  color: inherit !important;
+  background: transparent !important;
+  font: inherit !important;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.viz-carousel-controls > button,
+.viz-carousel-picker > summary {
+  position: relative;
+  isolation: isolate;
+}
+
+.viz-carousel-controls > button {
+  --icon-size: 16px;
+  width: 30px !important;
+  padding: 0 !important;
+}
+
+.viz-carousel-picker > summary {
+  padding-inline: 12px !important;
+}
+
+.viz-carousel-controls .viz-carousel-caret {
+  width: 14px;
+  height: 14px;
+  flex: none;
+  margin: 0;
+  color: inherit;
+  transform: rotate(180deg);
+}
+
+.viz-carousel-controls > button > svg,
+.viz-carousel-controls .viz-carousel-caret,
+.viz-carousel-count {
+  opacity: 0.5;
+}
+
+.viz-carousel-controls > button::before,
+.viz-carousel-picker > summary::before {
+  position: absolute;
+  z-index: -1;
+  inset: 3px;
+  border-radius: 12px;
+  content: "";
+  pointer-events: none;
+}
+
+.viz-carousel-controls > button:hover::before,
+.viz-carousel-picker > summary:hover::before {
+  background: var(--viz-carousel-hover);
+}
+
+.viz-carousel-controls > button,
+.viz-carousel-controls [data-lucide],
+.viz-carousel-controls .lucide {
+  flex-shrink: 0;
+}
+
+.viz-carousel-picker {
+  min-width: 0;
+}
+
+.viz-carousel-picker > summary {
+  min-width: 0;
+  list-style: none;
+}
+
+.viz-carousel-picker > summary::-webkit-details-marker {
+  display: none;
+}
+
+.viz-carousel-count {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.viz-carousel-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.viz-carousel-options {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 4px);
+  left: 0;
+  display: flex;
+  max-height: 240px;
+  flex-direction: column;
+  gap: 2px;
+  overflow: auto;
+  padding: 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--background);
+  box-shadow: 0 4px 12px light-dark(rgb(0 0 0 / 6%), rgb(0 0 0 / 25%));
+}
+
+.viz-carousel-options > button {
+  border-radius: max(0px, calc(var(--radius-lg) - 5px)) !important;
+  width: 100% !important;
+  min-height: 28px;
+  justify-content: flex-start !important;
+  padding: 4px 8px !important;
+  font-size: var(--font-size-small) !important;
+  text-align: start;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.viz-carousel-options > [aria-current="true"],
+.viz-carousel-options > button:hover {
+  background: var(--viz-carousel-hover) !important;
+}
+
+.btn:disabled,
+.nav-link:disabled,
+.nav-link[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+[data-lucide] {
+  stroke-width: 1.6;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--foreground);
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  padding: 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  corner-shape: var(--corner-shape);
+  color: var(--foreground);
+  background: var(--secondary);
+}
+
+.form-control::placeholder {
+  color: var(--muted-foreground);
+}
+
+.form-control[type="file"] {
+  padding: 0;
+  overflow: hidden;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control[type="file"]::file-selector-button {
+  min-height: 26px;
+  margin-right: 8px;
+  padding: 0 8px;
+  border: 0;
+  border-right: 1px solid var(--input);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  cursor: inherit;
+  font: inherit;
+}
+
+.form-control[type="file"]:not(:disabled):hover::file-selector-button {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-control-color[type="color"] {
+  width: 40px;
+  height: 28px;
+  padding: 3px;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control-color[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.form-control-color[type="color"]::-webkit-color-swatch {
+  border: 0;
+  border-radius: calc(var(--radius-lg) - 4px);
+  corner-shape: var(--corner-shape);
+}
+
+textarea.form-control {
+  height: auto;
+  min-height: 72px;
+  padding: 8px 10px;
+  resize: vertical;
+}
+
+.form-control:focus-visible {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-control:disabled,
+.form-select:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.form-select {
+  appearance: none;
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  margin: 0;
+  padding: 0 32px 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  corner-shape: var(--corner-shape);
+  color: var(--foreground);
+  background-color: var(--secondary);
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--muted-foreground) 50%),
+    linear-gradient(135deg, var(--muted-foreground) 50%, transparent 50%);
+  background-position:
+    calc(100% - 14px) 50%,
+    calc(100% - 10px) 50%;
+  background-repeat: no-repeat;
+  background-size: 4px 4px;
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-select:not(:disabled):hover {
+  background-color: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-select:focus-visible {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-check {
+  display: flex;
+  min-height: 20px;
+  align-items: center;
+  gap: 6px;
+}
+
+.form-check-input {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+  margin: 0;
+  border: 1px solid var(--input);
+  color: var(--primary-foreground);
+  background-color: transparent;
+  cursor: var(--cursor-interaction, default);
+  transition:
+    background-color 150ms,
+    border-color 150ms,
+    box-shadow 150ms;
+}
+
+.form-check:not(.form-switch) .form-check-input[type="checkbox"] {
+  border-color: var(--input);
+  border-radius: var(--radius-sm);
+  corner-shape: var(--corner-shape);
+  background-color: var(--secondary);
+  box-shadow: var(--shadow-sm);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input:not(:disabled):not(:checked):hover {
+  background-color: var(--card);
+}
+
+.form-check:not(.form-switch) .form-check-input[type="checkbox"]:checked {
+  border-color: var(--primary);
+  background-color: var(--primary);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input[type="checkbox"]:checked::before {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-foreground);
+  content: "";
+  mask: var(--checkmark-image) center / 12px 12px no-repeat;
+}
+
+.form-check-input[type="radio"] {
+  width: 14px;
+  height: 14px;
+  border-radius: var(--radius-full);
+}
+
+.form-check-input[type="radio"]:checked {
+  border: 2px solid var(--primary);
+  background:
+    radial-gradient(circle, var(--primary-foreground) 0 2.5px, transparent 3px),
+    var(--primary);
+}
+
+.form-check:not(.form-switch) .form-check-input:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+}
+
+.form-switch .form-check-input:disabled,
+.form-switch .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.form-check-label {
+  color: var(--foreground);
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-switch .form-check-input {
+  position: relative;
+  width: 32px;
+  height: 20px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--muted);
+  box-shadow: none;
+  transition: background-color 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+  border: 1px solid light-dark(var(--primary-foreground), var(--foreground));
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+  box-shadow: var(--shadow-sm);
+  content: "";
+  transform: translate(2px, -50%);
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input:checked {
+  background: var(--primary);
+}
+
+.form-switch .form-check-input:checked::before {
+  transform: translate(14px, -50%);
+}
+
+.form-switch .form-check-input:focus-visible {
+  box-shadow: 0 0 0 2px var(--ring);
+}
+
+.form-range {
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 28px;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: 0;
+  accent-color: var(--primary);
+  background: linear-gradient(
+      color-mix(in srgb, var(--foreground) 7%, transparent),
+      color-mix(in srgb, var(--foreground) 7%, transparent)
+    )
+    center / 100% 2px no-repeat;
+}
+
+.form-range::-webkit-slider-runnable-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-top: 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+}
+
+.form-range:focus-visible::-webkit-slider-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range::-moz-range-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+}
+
+.form-range:focus-visible::-moz-range-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.btn:not(.btn-primary, .viz-tile):is(
+  [aria-pressed="true"],
+  [aria-selected="true"],
+  .is-selected
+) {
+  border-color: var(--primary);
+  color: var(--primary-foreground);
+  background: var(--primary);
+}
+
+.btn.viz-tile:is([aria-pressed="true"], [aria-selected="true"], .is-selected) {
+  border-color: var(--primary);
+  box-shadow: inset 0 0 0 1px var(--primary);
+}
+
+.btn:focus-visible,
+.nav-link:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.viz-carousel-controls :is(button, summary):focus-visible {
+  outline: 2px solid var(--ring) !important;
+  outline-offset: 2px !important;
+}
+
+@media (pointer: coarse) {
+  .viz-carousel:has(> .viz-carousel-controls) {
+    min-height: calc(76px + var(--viz-carousel-picker-height, 0px));
+    padding-bottom: 76px;
+  }
+
+  .btn,
+  .nav-link,
+  .viz-carousel-controls button,
+  .viz-carousel-picker > summary,
+  .form-control,
+  .form-select {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* Keep small-screen WebKit from zooming when a text field receives focus. */
+  .form-control,
+  .form-select {
+    font-size: max(16px, var(--font-size-normal));
+  }
+
+  .form-control[type="file"]::file-selector-button {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .form-control-color[type="color"] {
+    width: 44px;
+    height: 44px;
+  }
+
+  .form-control:is(
+    [type="date"],
+    [type="datetime-local"],
+    [type="month"],
+    [type="time"],
+    [type="week"]
+  ) {
+    min-width: 0;
+    max-width: 100%;
+    padding-block: 8px;
+  }
+
+  .form-check {
+    min-height: 44px;
+    padding-inline: 15px;
+  }
+
+  .form-check-input {
+    position: relative;
+  }
+
+  .form-check-input::after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 44px;
+    height: 44px;
+    content: "";
+    transform: translate(-50%, -50%);
+  }
+
+  .form-check-label {
+    display: inline-flex;
+    min-width: 44px;
+    min-height: 44px;
+    align-items: center;
+  }
+
+  .form-range {
+    height: 44px;
+    touch-action: pan-y;
+  }
+
+  .form-range::-webkit-slider-runnable-track {
+    height: 44px;
+  }
+
+  .form-range::-moz-range-track {
+    height: 44px;
+  }
+
+  .form-range::-webkit-slider-thumb {
+    margin-top: 12px;
+  }
+}
+
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+#widget > svg {
+  width: 100%;
+}
+
+/* Model-authored chart rules can otherwise stretch icons after these styles load. */
+svg.lucide {
+  display: block;
+  width: var(--icon-size) !important;
+  height: var(--icon-size) !important;
+  flex: none;
+  margin: 0 !important;
+  stroke-width: 1.6;
+}
+
+.text-warning,
+.text-destructive {
+  color: var(--destructive);
+}
+
+body{font-family:"Noto Sans SC",sans-serif;padding:20px} .gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px} figure{margin:0} img{width:100%;height:auto} section{margin-block:30px} @media(max-width:750px){.gallery{grid-template-columns:1fr}}</style></head><body><h1>scene002.02 · 142 个当前视图</h1><p>灰色可视几何 · 蓝色原生形状 · 凸包按形状分块着色 · 未执行物理烹制。点击图片查看原始分辨率。</p><p><a href="index.html">交互检查与对象清点</a> · 2026-10-05T07:33:13.335053+00:00 · 图片写入 0 / 保留 142 · 几何比对通过 · <a href="image_lineage.json">图片来源</a></p><section id="obj_background"><h2>background</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_background-visual.png"><img loading="lazy" src="img/obj_background-visual.png" alt="background · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_background-collider.png"><img loading="lazy" src="img/obj_background-collider.png" alt="background · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_background-overlay.png"><img loading="lazy" src="img/obj_background-overlay.png" alt="background · 叠加对照"></a></figure></div></section><section id="obj_sofa"><h2>sofa</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_sofa-visual.png"><img loading="lazy" src="img/obj_sofa-visual.png" alt="sofa · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_sofa-collider.png"><img loading="lazy" src="img/obj_sofa-collider.png" alt="sofa · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_sofa-overlay.png"><img loading="lazy" src="img/obj_sofa-overlay.png" alt="sofa · 叠加对照"></a></figure></div></section><section id="obj_tea_table"><h2>tea_table</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_tea_table-visual.png"><img loading="lazy" src="img/obj_tea_table-visual.png" alt="tea_table · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_tea_table-collider.png"><img loading="lazy" src="img/obj_tea_table-collider.png" alt="tea_table · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_tea_table-overlay.png"><img loading="lazy" src="img/obj_tea_table-overlay.png" alt="tea_table · 叠加对照"></a></figure></div></section><section id="obj_folding_screen"><h2>folding_screen</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_folding_screen-visual.png"><img loading="lazy" src="img/obj_folding_screen-visual.png" alt="folding_screen · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_folding_screen-collider.png"><img loading="lazy" src="img/obj_folding_screen-collider.png" alt="folding_screen · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_folding_screen-overlay.png"><img loading="lazy" src="img/obj_folding_screen-overlay.png" alt="folding_screen · 叠加对照"></a></figure></div></section><section id="obj_side_table_left"><h2>side_table_left</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_side_table_left-visual.png"><img loading="lazy" src="img/obj_side_table_left-visual.png" alt="side_table_left · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_side_table_left-collider.png"><img loading="lazy" src="img/obj_side_table_left-collider.png" alt="side_table_left · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_side_table_left-overlay.png"><img loading="lazy" src="img/obj_side_table_left-overlay.png" alt="side_table_left · 叠加对照"></a></figure></div></section><section id="obj_side_table_right"><h2>side_table_right</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_side_table_right-visual.png"><img loading="lazy" src="img/obj_side_table_right-visual.png" alt="side_table_right · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_side_table_right-collider.png"><img loading="lazy" src="img/obj_side_table_right-collider.png" alt="side_table_right · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_side_table_right-overlay.png"><img loading="lazy" src="img/obj_side_table_right-overlay.png" alt="side_table_right · 叠加对照"></a></figure></div></section><section id="obj_portable_air_conditioner"><h2>portable_air_conditioner</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_portable_air_conditioner-visual.png"><img loading="lazy" src="img/obj_portable_air_conditioner-visual.png" alt="portable_air_conditioner · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_portable_air_conditioner-collider.png"><img loading="lazy" src="img/obj_portable_air_conditioner-collider.png" alt="portable_air_conditioner · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_portable_air_conditioner-overlay.png"><img loading="lazy" src="img/obj_portable_air_conditioner-overlay.png" alt="portable_air_conditioner · 叠加对照"></a></figure></div></section><section id="obj_air_conditioner_remote"><h2>air_conditioner_remote</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_air_conditioner_remote-visual.png"><img loading="lazy" src="img/obj_air_conditioner_remote-visual.png" alt="air_conditioner_remote · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_air_conditioner_remote-collider.png"><img loading="lazy" src="img/obj_air_conditioner_remote-collider.png" alt="air_conditioner_remote · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_air_conditioner_remote-overlay.png"><img loading="lazy" src="img/obj_air_conditioner_remote-overlay.png" alt="air_conditioner_remote · 叠加对照"></a></figure></div></section><section id="obj_floor_lamp"><h2>floor_lamp</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_floor_lamp-visual.png"><img loading="lazy" src="img/obj_floor_lamp-visual.png" alt="floor_lamp · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_floor_lamp-collider.png"><img loading="lazy" src="img/obj_floor_lamp-collider.png" alt="floor_lamp · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_floor_lamp-overlay.png"><img loading="lazy" src="img/obj_floor_lamp-overlay.png" alt="floor_lamp · 叠加对照"></a></figure></div></section><section id="obj_air_purifier"><h2>air_purifier</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_air_purifier-visual.png"><img loading="lazy" src="img/obj_air_purifier-visual.png" alt="air_purifier · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_air_purifier-collider.png"><img loading="lazy" src="img/obj_air_purifier-collider.png" alt="air_purifier · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_air_purifier-overlay.png"><img loading="lazy" src="img/obj_air_purifier-overlay.png" alt="air_purifier · 叠加对照"></a></figure></div></section><section id="obj_table_light"><h2>table_light</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_table_light-visual.png"><img loading="lazy" src="img/obj_table_light-visual.png" alt="table_light · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_table_light-collider.png"><img loading="lazy" src="img/obj_table_light-collider.png" alt="table_light · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_table_light-overlay.png"><img loading="lazy" src="img/obj_table_light-overlay.png" alt="table_light · 叠加对照"></a></figure></div></section><section id="obj_trash_can"><h2>trash_can</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_trash_can-visual.png"><img loading="lazy" src="img/obj_trash_can-visual.png" alt="trash_can · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_trash_can-collider.png"><img loading="lazy" src="img/obj_trash_can-collider.png" alt="trash_can · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_trash_can-overlay.png"><img loading="lazy" src="img/obj_trash_can-overlay.png" alt="trash_can · 叠加对照"></a></figure></div></section><section id="obj_table_fan"><h2>table_fan</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_table_fan-visual.png"><img loading="lazy" src="img/obj_table_fan-visual.png" alt="table_fan · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_table_fan-collider.png"><img loading="lazy" src="img/obj_table_fan-collider.png" alt="table_fan · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_table_fan-overlay.png"><img loading="lazy" src="img/obj_table_fan-overlay.png" alt="table_fan · 叠加对照"></a></figure></div></section><section id="obj_digital_clock"><h2>digital_clock</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_digital_clock-visual.png"><img loading="lazy" src="img/obj_digital_clock-visual.png" alt="digital_clock · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_digital_clock-collider.png"><img loading="lazy" src="img/obj_digital_clock-collider.png" alt="digital_clock · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_digital_clock-overlay.png"><img loading="lazy" src="img/obj_digital_clock-overlay.png" alt="digital_clock · 叠加对照"></a></figure></div></section><section id="obj_desktop_clock"><h2>desktop_clock</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_desktop_clock-visual.png"><img loading="lazy" src="img/obj_desktop_clock-visual.png" alt="desktop_clock · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_desktop_clock-collider.png"><img loading="lazy" src="img/obj_desktop_clock-collider.png" alt="desktop_clock · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_desktop_clock-overlay.png"><img loading="lazy" src="img/obj_desktop_clock-overlay.png" alt="desktop_clock · 叠加对照"></a></figure></div></section><section id="obj_tea_set"><h2>tea_set</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_tea_set-visual.png"><img loading="lazy" src="img/obj_tea_set-visual.png" alt="tea_set · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_tea_set-collider.png"><img loading="lazy" src="img/obj_tea_set-collider.png" alt="tea_set · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_tea_set-overlay.png"><img loading="lazy" src="img/obj_tea_set-overlay.png" alt="tea_set · 叠加对照"></a></figure></div></section><section id="obj_teapot"><h2>teapot</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_teapot-visual.png"><img loading="lazy" src="img/obj_teapot-visual.png" alt="teapot · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_teapot-collider.png"><img loading="lazy" src="img/obj_teapot-collider.png" alt="teapot · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_teapot-overlay.png"><img loading="lazy" src="img/obj_teapot-overlay.png" alt="teapot · 叠加对照"></a></figure></div></section><section id="obj_record_player"><h2>record_player</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_record_player-visual.png"><img loading="lazy" src="img/obj_record_player-visual.png" alt="record_player · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_record_player-collider.png"><img loading="lazy" src="img/obj_record_player-collider.png" alt="record_player · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_record_player-overlay.png"><img loading="lazy" src="img/obj_record_player-overlay.png" alt="record_player · 叠加对照"></a></figure></div></section><section id="obj_record"><h2>record</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_record-visual.png"><img loading="lazy" src="img/obj_record-visual.png" alt="record · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_record-collider.png"><img loading="lazy" src="img/obj_record-collider.png" alt="record · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_record-overlay.png"><img loading="lazy" src="img/obj_record-overlay.png" alt="record · 叠加对照"></a></figure></div></section><section id="obj_record_black_patti"><h2>record_black_patti</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_record_black_patti-visual.png"><img loading="lazy" src="img/obj_record_black_patti-visual.png" alt="record_black_patti · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_record_black_patti-collider.png"><img loading="lazy" src="img/obj_record_black_patti-collider.png" alt="record_black_patti · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_record_black_patti-overlay.png"><img loading="lazy" src="img/obj_record_black_patti-overlay.png" alt="record_black_patti · 叠加对照"></a></figure></div></section><section id="obj_record_herwin"><h2>record_herwin</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_record_herwin-visual.png"><img loading="lazy" src="img/obj_record_herwin-visual.png" alt="record_herwin · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_record_herwin-collider.png"><img loading="lazy" src="img/obj_record_herwin-collider.png" alt="record_herwin · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_record_herwin-overlay.png"><img loading="lazy" src="img/obj_record_herwin-overlay.png" alt="record_herwin · 叠加对照"></a></figure></div></section><section id="obj_record_claxtonola"><h2>record_claxtonola</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_record_claxtonola-visual.png"><img loading="lazy" src="img/obj_record_claxtonola-visual.png" alt="record_claxtonola · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_record_claxtonola-collider.png"><img loading="lazy" src="img/obj_record_claxtonola-collider.png" alt="record_claxtonola · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_record_claxtonola-overlay.png"><img loading="lazy" src="img/obj_record_claxtonola-overlay.png" alt="record_claxtonola · 叠加对照"></a></figure></div></section><section id="obj_record_decca_blue"><h2>record_decca_blue</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_record_decca_blue-visual.png"><img loading="lazy" src="img/obj_record_decca_blue-visual.png" alt="record_decca_blue · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_record_decca_blue-collider.png"><img loading="lazy" src="img/obj_record_decca_blue-collider.png" alt="record_decca_blue · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_record_decca_blue-overlay.png"><img loading="lazy" src="img/obj_record_decca_blue-overlay.png" alt="record_decca_blue · 叠加对照"></a></figure></div></section><section id="obj_record_columbia"><h2>record_columbia</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_record_columbia-visual.png"><img loading="lazy" src="img/obj_record_columbia-visual.png" alt="record_columbia · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_record_columbia-collider.png"><img loading="lazy" src="img/obj_record_columbia-collider.png" alt="record_columbia · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_record_columbia-overlay.png"><img loading="lazy" src="img/obj_record_columbia-overlay.png" alt="record_columbia · 叠加对照"></a></figure></div></section><section id="obj_record_crown"><h2>record_crown</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_record_crown-visual.png"><img loading="lazy" src="img/obj_record_crown-visual.png" alt="record_crown · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_record_crown-collider.png"><img loading="lazy" src="img/obj_record_crown-collider.png" alt="record_crown · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_record_crown-overlay.png"><img loading="lazy" src="img/obj_record_crown-overlay.png" alt="record_crown · 叠加对照"></a></figure></div></section><section id="obj_record_electradisk"><h2>record_electradisk</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_record_electradisk-visual.png"><img loading="lazy" src="img/obj_record_electradisk-visual.png" alt="record_electradisk · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_record_electradisk-collider.png"><img loading="lazy" src="img/obj_record_electradisk-collider.png" alt="record_electradisk · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_record_electradisk-overlay.png"><img loading="lazy" src="img/obj_record_electradisk-overlay.png" alt="record_electradisk · 叠加对照"></a></figure></div></section><section id="obj_record_savoy"><h2>record_savoy</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_record_savoy-visual.png"><img loading="lazy" src="img/obj_record_savoy-visual.png" alt="record_savoy · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_record_savoy-collider.png"><img loading="lazy" src="img/obj_record_savoy-collider.png" alt="record_savoy · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_record_savoy-overlay.png"><img loading="lazy" src="img/obj_record_savoy-overlay.png" alt="record_savoy · 叠加对照"></a></figure></div></section><section id="obj_record_climax"><h2>record_climax</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_record_climax-visual.png"><img loading="lazy" src="img/obj_record_climax-visual.png" alt="record_climax · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_record_climax-collider.png"><img loading="lazy" src="img/obj_record_climax-collider.png" alt="record_climax · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_record_climax-overlay.png"><img loading="lazy" src="img/obj_record_climax-overlay.png" alt="record_climax · 叠加对照"></a></figure></div></section><section id="obj_record_decca_vintage"><h2>record_decca_vintage</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_record_decca_vintage-visual.png"><img loading="lazy" src="img/obj_record_decca_vintage-visual.png" alt="record_decca_vintage · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_record_decca_vintage-collider.png"><img loading="lazy" src="img/obj_record_decca_vintage-collider.png" alt="record_decca_vintage · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_record_decca_vintage-overlay.png"><img loading="lazy" src="img/obj_record_decca_vintage-overlay.png" alt="record_decca_vintage · 叠加对照"></a></figure></div></section><section id="obj_record_black_swan"><h2>record_black_swan</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_record_black_swan-visual.png"><img loading="lazy" src="img/obj_record_black_swan-visual.png" alt="record_black_swan · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_record_black_swan-collider.png"><img loading="lazy" src="img/obj_record_black_swan-collider.png" alt="record_black_swan · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_record_black_swan-overlay.png"><img loading="lazy" src="img/obj_record_black_swan-overlay.png" alt="record_black_swan · 叠加对照"></a></figure></div></section><section id="obj_record_excelsior"><h2>record_excelsior</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_record_excelsior-visual.png"><img loading="lazy" src="img/obj_record_excelsior-visual.png" alt="record_excelsior · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_record_excelsior-collider.png"><img loading="lazy" src="img/obj_record_excelsior-collider.png" alt="record_excelsior · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_record_excelsior-overlay.png"><img loading="lazy" src="img/obj_record_excelsior-overlay.png" alt="record_excelsior · 叠加对照"></a></figure></div></section><section id="obj_radio"><h2>radio</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_radio-visual.png"><img loading="lazy" src="img/obj_radio-visual.png" alt="radio · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_radio-collider.png"><img loading="lazy" src="img/obj_radio-collider.png" alt="radio · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_radio-overlay.png"><img loading="lazy" src="img/obj_radio-overlay.png" alt="radio · 叠加对照"></a></figure></div></section><section id="obj_sound_box"><h2>sound_box</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_sound_box-visual.png"><img loading="lazy" src="img/obj_sound_box-visual.png" alt="sound_box · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_sound_box-collider.png"><img loading="lazy" src="img/obj_sound_box-collider.png" alt="sound_box · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_sound_box-overlay.png"><img loading="lazy" src="img/obj_sound_box-overlay.png" alt="sound_box · 叠加对照"></a></figure></div></section><section id="obj_magazine_rack"><h2>magazine_rack</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_magazine_rack-visual.png"><img loading="lazy" src="img/obj_magazine_rack-visual.png" alt="magazine_rack · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_magazine_rack-collider.png"><img loading="lazy" src="img/obj_magazine_rack-collider.png" alt="magazine_rack · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_magazine_rack-overlay.png"><img loading="lazy" src="img/obj_magazine_rack-overlay.png" alt="magazine_rack · 叠加对照"></a></figure></div></section><section id="obj_tissue_box"><h2>tissue_box</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_tissue_box-visual.png"><img loading="lazy" src="img/obj_tissue_box-visual.png" alt="tissue_box · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_tissue_box-collider.png"><img loading="lazy" src="img/obj_tissue_box-collider.png" alt="tissue_box · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_tissue_box-overlay.png"><img loading="lazy" src="img/obj_tissue_box-overlay.png" alt="tissue_box · 叠加对照"></a></figure></div></section><section id="obj_tissue"><h2>tissue</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_tissue-visual.png"><img loading="lazy" src="img/obj_tissue-visual.png" alt="tissue · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_tissue-collider.png"><img loading="lazy" src="img/obj_tissue-collider.png" alt="tissue · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_tissue-overlay.png"><img loading="lazy" src="img/obj_tissue-overlay.png" alt="tissue · 叠加对照"></a></figure></div></section><section id="obj_chess_board"><h2>chess_board</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_chess_board-visual.png"><img loading="lazy" src="img/obj_chess_board-visual.png" alt="chess_board · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_chess_board-collider.png"><img loading="lazy" src="img/obj_chess_board-collider.png" alt="chess_board · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_chess_board-overlay.png"><img loading="lazy" src="img/obj_chess_board-overlay.png" alt="chess_board · 叠加对照"></a></figure></div></section><section id="obj_chess_pieces"><h2>chess_pieces</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_chess_pieces-visual.png"><img loading="lazy" src="img/obj_chess_pieces-visual.png" alt="chess_pieces · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_chess_pieces-collider.png"><img loading="lazy" src="img/obj_chess_pieces-collider.png" alt="chess_pieces · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_chess_pieces-overlay.png"><img loading="lazy" src="img/obj_chess_pieces-overlay.png" alt="chess_pieces · 叠加对照"></a></figure></div></section><section id="obj_c_shape_table"><h2>c_shape_table</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_c_shape_table-visual.png"><img loading="lazy" src="img/obj_c_shape_table-visual.png" alt="c_shape_table · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_c_shape_table-collider.png"><img loading="lazy" src="img/obj_c_shape_table-collider.png" alt="c_shape_table · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_c_shape_table-overlay.png"><img loading="lazy" src="img/obj_c_shape_table-overlay.png" alt="c_shape_table · 叠加对照"></a></figure></div></section><section id="obj_laptop_table"><h2>laptop_table</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_laptop_table-visual.png"><img loading="lazy" src="img/obj_laptop_table-visual.png" alt="laptop_table · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_laptop_table-collider.png"><img loading="lazy" src="img/obj_laptop_table-collider.png" alt="laptop_table · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_laptop_table-overlay.png"><img loading="lazy" src="img/obj_laptop_table-overlay.png" alt="laptop_table · 叠加对照"></a></figure></div></section><section id="obj_laptop"><h2>laptop</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_laptop-visual.png"><img loading="lazy" src="img/obj_laptop-visual.png" alt="laptop · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_laptop-collider.png"><img loading="lazy" src="img/obj_laptop-collider.png" alt="laptop · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_laptop-overlay.png"><img loading="lazy" src="img/obj_laptop-overlay.png" alt="laptop · 叠加对照"></a></figure></div></section><section id="obj_phone"><h2>phone</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_phone-visual.png"><img loading="lazy" src="img/obj_phone-visual.png" alt="phone · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_phone-collider.png"><img loading="lazy" src="img/obj_phone-collider.png" alt="phone · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_phone-overlay.png"><img loading="lazy" src="img/obj_phone-overlay.png" alt="phone · 叠加对照"></a></figure></div></section><section id="obj_snack_container"><h2>snack_container</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_snack_container-visual.png"><img loading="lazy" src="img/obj_snack_container-visual.png" alt="snack_container · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_snack_container-collider.png"><img loading="lazy" src="img/obj_snack_container-collider.png" alt="snack_container · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_snack_container-overlay.png"><img loading="lazy" src="img/obj_snack_container-overlay.png" alt="snack_container · 叠加对照"></a></figure></div></section><section id="obj_decoration_set"><h2>decoration_set</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_decoration_set-visual.png"><img loading="lazy" src="img/obj_decoration_set-visual.png" alt="decoration_set · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_decoration_set-collider.png"><img loading="lazy" src="img/obj_decoration_set-collider.png" alt="decoration_set · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_decoration_set-overlay.png"><img loading="lazy" src="img/obj_decoration_set-overlay.png" alt="decoration_set · 叠加对照"></a></figure></div></section><section id="obj_rug"><h2>rug</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_rug-visual.png"><img loading="lazy" src="img/obj_rug-visual.png" alt="rug · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_rug-collider.png"><img loading="lazy" src="img/obj_rug-collider.png" alt="rug · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_rug-overlay.png"><img loading="lazy" src="img/obj_rug-overlay.png" alt="rug · 叠加对照"></a></figure></div></section><section id="obj_slipper"><h2>slipper</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_slipper-visual.png"><img loading="lazy" src="img/obj_slipper-visual.png" alt="slipper · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_slipper-collider.png"><img loading="lazy" src="img/obj_slipper-collider.png" alt="slipper · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_slipper-overlay.png"><img loading="lazy" src="img/obj_slipper-overlay.png" alt="slipper · 叠加对照"></a></figure></div></section><section id="obj_kettle"><h2>kettle</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_kettle-visual.png"><img loading="lazy" src="img/obj_kettle-visual.png" alt="kettle · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_kettle-collider.png"><img loading="lazy" src="img/obj_kettle-collider.png" alt="kettle · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_kettle-overlay.png"><img loading="lazy" src="img/obj_kettle-overlay.png" alt="kettle · 叠加对照"></a></figure></div></section><section id="obj_candy_01"><h2>candy_01</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_candy_01-visual.png"><img loading="lazy" src="img/obj_candy_01-visual.png" alt="candy_01 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_candy_01-collider.png"><img loading="lazy" src="img/obj_candy_01-collider.png" alt="candy_01 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_candy_01-overlay.png"><img loading="lazy" src="img/obj_candy_01-overlay.png" alt="candy_01 · 叠加对照"></a></figure></div></section><section id="obj_almond_01"><h2>almond_01</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_almond_01-visual.png"><img loading="lazy" src="img/obj_almond_01-visual.png" alt="almond_01 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_almond_01-collider.png"><img loading="lazy" src="img/obj_almond_01-collider.png" alt="almond_01 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_almond_01-overlay.png"><img loading="lazy" src="img/obj_almond_01-overlay.png" alt="almond_01 · 叠加对照"></a></figure></div></section><section id="obj_chocolate_01"><h2>chocolate_01</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_chocolate_01-visual.png"><img loading="lazy" src="img/obj_chocolate_01-visual.png" alt="chocolate_01 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_chocolate_01-collider.png"><img loading="lazy" src="img/obj_chocolate_01-collider.png" alt="chocolate_01 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_chocolate_01-overlay.png"><img loading="lazy" src="img/obj_chocolate_01-overlay.png" alt="chocolate_01 · 叠加对照"></a></figure></div></section><section id="obj_tea_leaf_01"><h2>tea_leaf_01</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_tea_leaf_01-visual.png"><img loading="lazy" src="img/obj_tea_leaf_01-visual.png" alt="tea_leaf_01 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_tea_leaf_01-collider.png"><img loading="lazy" src="img/obj_tea_leaf_01-collider.png" alt="tea_leaf_01 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_tea_leaf_01-overlay.png"><img loading="lazy" src="img/obj_tea_leaf_01-overlay.png" alt="tea_leaf_01 · 叠加对照"></a></figure></div></section><section id="obj_tea_leaf_02"><h2>tea_leaf_02</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_tea_leaf_02-visual.png"><img loading="lazy" src="img/obj_tea_leaf_02-visual.png" alt="tea_leaf_02 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_tea_leaf_02-collider.png"><img loading="lazy" src="img/obj_tea_leaf_02-collider.png" alt="tea_leaf_02 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_tea_leaf_02-overlay.png"><img loading="lazy" src="img/obj_tea_leaf_02-overlay.png" alt="tea_leaf_02 · 叠加对照"></a></figure></div></section><section id="obj_tea_leaf_03"><h2>tea_leaf_03</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_tea_leaf_03-visual.png"><img loading="lazy" src="img/obj_tea_leaf_03-visual.png" alt="tea_leaf_03 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_tea_leaf_03-collider.png"><img loading="lazy" src="img/obj_tea_leaf_03-collider.png" alt="tea_leaf_03 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_tea_leaf_03-overlay.png"><img loading="lazy" src="img/obj_tea_leaf_03-overlay.png" alt="tea_leaf_03 · 叠加对照"></a></figure></div></section><section id="obj_tea_leaf_04"><h2>tea_leaf_04</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_tea_leaf_04-visual.png"><img loading="lazy" src="img/obj_tea_leaf_04-visual.png" alt="tea_leaf_04 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_tea_leaf_04-collider.png"><img loading="lazy" src="img/obj_tea_leaf_04-collider.png" alt="tea_leaf_04 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_tea_leaf_04-overlay.png"><img loading="lazy" src="img/obj_tea_leaf_04-overlay.png" alt="tea_leaf_04 · 叠加对照"></a></figure></div></section><section id="obj_tea_leaf_05"><h2>tea_leaf_05</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_tea_leaf_05-visual.png"><img loading="lazy" src="img/obj_tea_leaf_05-visual.png" alt="tea_leaf_05 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_tea_leaf_05-collider.png"><img loading="lazy" src="img/obj_tea_leaf_05-collider.png" alt="tea_leaf_05 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_tea_leaf_05-overlay.png"><img loading="lazy" src="img/obj_tea_leaf_05-overlay.png" alt="tea_leaf_05 · 叠加对照"></a></figure></div></section><section id="obj_tea_leaf_06"><h2>tea_leaf_06</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_tea_leaf_06-visual.png"><img loading="lazy" src="img/obj_tea_leaf_06-visual.png" alt="tea_leaf_06 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_tea_leaf_06-collider.png"><img loading="lazy" src="img/obj_tea_leaf_06-collider.png" alt="tea_leaf_06 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_tea_leaf_06-overlay.png"><img loading="lazy" src="img/obj_tea_leaf_06-overlay.png" alt="tea_leaf_06 · 叠加对照"></a></figure></div></section><section id="obj_biscuit_01"><h2>biscuit_01</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_biscuit_01-visual.png"><img loading="lazy" src="img/obj_biscuit_01-visual.png" alt="biscuit_01 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_biscuit_01-collider.png"><img loading="lazy" src="img/obj_biscuit_01-collider.png" alt="biscuit_01 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_biscuit_01-overlay.png"><img loading="lazy" src="img/obj_biscuit_01-overlay.png" alt="biscuit_01 · 叠加对照"></a></figure></div></section><section id="obj_bookshelf"><h2>bookshelf</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_bookshelf-visual.png"><img loading="lazy" src="img/obj_bookshelf-visual.png" alt="bookshelf · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_bookshelf-collider.png"><img loading="lazy" src="img/obj_bookshelf-collider.png" alt="bookshelf · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_bookshelf-overlay.png"><img loading="lazy" src="img/obj_bookshelf-overlay.png" alt="bookshelf · 叠加对照"></a></figure></div></section><section id="obj_yahtzee_game"><h2>yahtzee_game</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_yahtzee_game-visual.png"><img loading="lazy" src="img/obj_yahtzee_game-visual.png" alt="yahtzee_game · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_yahtzee_game-collider.png"><img loading="lazy" src="img/obj_yahtzee_game-collider.png" alt="yahtzee_game · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_yahtzee_game-overlay.png"><img loading="lazy" src="img/obj_yahtzee_game-overlay.png" alt="yahtzee_game · 叠加对照"></a></figure></div></section><section id="obj_books_2"><h2>books_2</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_books_2-visual.png"><img loading="lazy" src="img/obj_books_2-visual.png" alt="books_2 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_books_2-collider.png"><img loading="lazy" src="img/obj_books_2-collider.png" alt="books_2 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_books_2-overlay.png"><img loading="lazy" src="img/obj_books_2-overlay.png" alt="books_2 · 叠加对照"></a></figure></div></section><section id="obj_phone_holder"><h2>phone_holder</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_phone_holder-visual.png"><img loading="lazy" src="img/obj_phone_holder-visual.png" alt="phone_holder · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_phone_holder-collider.png"><img loading="lazy" src="img/obj_phone_holder-collider.png" alt="phone_holder · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_phone_holder-overlay.png"><img loading="lazy" src="img/obj_phone_holder-overlay.png" alt="phone_holder · 叠加对照"></a></figure></div></section><section id="obj_headphone"><h2>headphone</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_headphone-visual.png"><img loading="lazy" src="img/obj_headphone-visual.png" alt="headphone · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_headphone-collider.png"><img loading="lazy" src="img/obj_headphone-collider.png" alt="headphone · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_headphone-overlay.png"><img loading="lazy" src="img/obj_headphone-overlay.png" alt="headphone · 叠加对照"></a></figure></div></section><section id="obj_mug"><h2>mug</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_mug-visual.png"><img loading="lazy" src="img/obj_mug-visual.png" alt="mug · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_mug-collider.png"><img loading="lazy" src="img/obj_mug-collider.png" alt="mug · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_mug-overlay.png"><img loading="lazy" src="img/obj_mug-overlay.png" alt="mug · 叠加对照"></a></figure></div></section><section id="obj_glass_cup"><h2>glass_cup</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_glass_cup-visual.png"><img loading="lazy" src="img/obj_glass_cup-visual.png" alt="glass_cup · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_glass_cup-collider.png"><img loading="lazy" src="img/obj_glass_cup-collider.png" alt="glass_cup · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_glass_cup-overlay.png"><img loading="lazy" src="img/obj_glass_cup-overlay.png" alt="glass_cup · 叠加对照"></a></figure></div></section><section id="obj_decorative_books"><h2>decorative_books</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_decorative_books-visual.png"><img loading="lazy" src="img/obj_decorative_books-visual.png" alt="decorative_books · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_decorative_books-collider.png"><img loading="lazy" src="img/obj_decorative_books-collider.png" alt="decorative_books · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_decorative_books-overlay.png"><img loading="lazy" src="img/obj_decorative_books-overlay.png" alt="decorative_books · 叠加对照"></a></figure></div></section><section id="obj_magazine_01"><h2>magazine_01</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_magazine_01-visual.png"><img loading="lazy" src="img/obj_magazine_01-visual.png" alt="magazine_01 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_magazine_01-collider.png"><img loading="lazy" src="img/obj_magazine_01-collider.png" alt="magazine_01 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_magazine_01-overlay.png"><img loading="lazy" src="img/obj_magazine_01-overlay.png" alt="magazine_01 · 叠加对照"></a></figure></div></section><section id="obj_magazine_02"><h2>magazine_02</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_magazine_02-visual.png"><img loading="lazy" src="img/obj_magazine_02-visual.png" alt="magazine_02 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_magazine_02-collider.png"><img loading="lazy" src="img/obj_magazine_02-collider.png" alt="magazine_02 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_magazine_02-overlay.png"><img loading="lazy" src="img/obj_magazine_02-overlay.png" alt="magazine_02 · 叠加对照"></a></figure></div></section><section id="obj_magazine_03"><h2>magazine_03</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_magazine_03-visual.png"><img loading="lazy" src="img/obj_magazine_03-visual.png" alt="magazine_03 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_magazine_03-collider.png"><img loading="lazy" src="img/obj_magazine_03-collider.png" alt="magazine_03 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_magazine_03-overlay.png"><img loading="lazy" src="img/obj_magazine_03-overlay.png" alt="magazine_03 · 叠加对照"></a></figure></div></section><section id="obj_magazine_04"><h2>magazine_04</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_magazine_04-visual.png"><img loading="lazy" src="img/obj_magazine_04-visual.png" alt="magazine_04 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_magazine_04-collider.png"><img loading="lazy" src="img/obj_magazine_04-collider.png" alt="magazine_04 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_magazine_04-overlay.png"><img loading="lazy" src="img/obj_magazine_04-overlay.png" alt="magazine_04 · 叠加对照"></a></figure></div></section><section id="obj_magazine_05"><h2>magazine_05</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_magazine_05-visual.png"><img loading="lazy" src="img/obj_magazine_05-visual.png" alt="magazine_05 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_magazine_05-collider.png"><img loading="lazy" src="img/obj_magazine_05-collider.png" alt="magazine_05 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_magazine_05-overlay.png"><img loading="lazy" src="img/obj_magazine_05-overlay.png" alt="magazine_05 · 叠加对照"></a></figure></div></section><section id="obj_magazine_06"><h2>magazine_06</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_magazine_06-visual.png"><img loading="lazy" src="img/obj_magazine_06-visual.png" alt="magazine_06 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_magazine_06-collider.png"><img loading="lazy" src="img/obj_magazine_06-collider.png" alt="magazine_06 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_magazine_06-overlay.png"><img loading="lazy" src="img/obj_magazine_06-overlay.png" alt="magazine_06 · 叠加对照"></a></figure></div></section><section id="obj_magazine_07"><h2>magazine_07</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_magazine_07-visual.png"><img loading="lazy" src="img/obj_magazine_07-visual.png" alt="magazine_07 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_magazine_07-collider.png"><img loading="lazy" src="img/obj_magazine_07-collider.png" alt="magazine_07 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_magazine_07-overlay.png"><img loading="lazy" src="img/obj_magazine_07-overlay.png" alt="magazine_07 · 叠加对照"></a></figure></div></section><section id="obj_notebook"><h2>notebook</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_notebook-visual.png"><img loading="lazy" src="img/obj_notebook-visual.png" alt="notebook · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_notebook-collider.png"><img loading="lazy" src="img/obj_notebook-collider.png" alt="notebook · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_notebook-overlay.png"><img loading="lazy" src="img/obj_notebook-overlay.png" alt="notebook · 叠加对照"></a></figure></div></section><section id="obj_tv_remote"><h2>tv_remote</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_tv_remote-visual.png"><img loading="lazy" src="img/obj_tv_remote-visual.png" alt="tv_remote · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_tv_remote-collider.png"><img loading="lazy" src="img/obj_tv_remote-collider.png" alt="tv_remote · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_tv_remote-overlay.png"><img loading="lazy" src="img/obj_tv_remote-overlay.png" alt="tv_remote · 叠加对照"></a></figure></div></section><section id="obj_photo_frame_3"><h2>photo_frame_3</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_photo_frame_3-visual.png"><img loading="lazy" src="img/obj_photo_frame_3-visual.png" alt="photo_frame_3 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_photo_frame_3-collider.png"><img loading="lazy" src="img/obj_photo_frame_3-collider.png" alt="photo_frame_3 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_photo_frame_3-overlay.png"><img loading="lazy" src="img/obj_photo_frame_3-overlay.png" alt="photo_frame_3 · 叠加对照"></a></figure></div></section><section id="obj_coffee_pods"><h2>coffee_pods</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_coffee_pods-visual.png"><img loading="lazy" src="img/obj_coffee_pods-visual.png" alt="coffee_pods · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_coffee_pods-collider.png"><img loading="lazy" src="img/obj_coffee_pods-collider.png" alt="coffee_pods · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_coffee_pods-overlay.png"><img loading="lazy" src="img/obj_coffee_pods-overlay.png" alt="coffee_pods · 叠加对照"></a></figure></div></section><section id="obj_glass_cake_dome_2"><h2>glass_cake_dome_2</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_glass_cake_dome_2-visual.png"><img loading="lazy" src="img/obj_glass_cake_dome_2-visual.png" alt="glass_cake_dome_2 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_glass_cake_dome_2-collider.png"><img loading="lazy" src="img/obj_glass_cake_dome_2-collider.png" alt="glass_cake_dome_2 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_glass_cake_dome_2-overlay.png"><img loading="lazy" src="img/obj_glass_cake_dome_2-overlay.png" alt="glass_cake_dome_2 · 叠加对照"></a></figure></div></section><section id="obj_tool_set"><h2>tool_set</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_tool_set-visual.png"><img loading="lazy" src="img/obj_tool_set-visual.png" alt="tool_set · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_tool_set-collider.png"><img loading="lazy" src="img/obj_tool_set-collider.png" alt="tool_set · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_tool_set-overlay.png"><img loading="lazy" src="img/obj_tool_set-overlay.png" alt="tool_set · 叠加对照"></a></figure></div></section><section id="obj_plier"><h2>plier</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_plier-visual.png"><img loading="lazy" src="img/obj_plier-visual.png" alt="plier · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_plier-collider.png"><img loading="lazy" src="img/obj_plier-collider.png" alt="plier · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_plier-overlay.png"><img loading="lazy" src="img/obj_plier-overlay.png" alt="plier · 叠加对照"></a></figure></div></section><section id="obj_wrench"><h2>wrench</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_wrench-visual.png"><img loading="lazy" src="img/obj_wrench-visual.png" alt="wrench · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_wrench-collider.png"><img loading="lazy" src="img/obj_wrench-collider.png" alt="wrench · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_wrench-overlay.png"><img loading="lazy" src="img/obj_wrench-overlay.png" alt="wrench · 叠加对照"></a></figure></div></section><section id="obj_small_plant_1"><h2>small_plant_1</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_small_plant_1-visual.png"><img loading="lazy" src="img/obj_small_plant_1-visual.png" alt="small_plant_1 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_small_plant_1-collider.png"><img loading="lazy" src="img/obj_small_plant_1-collider.png" alt="small_plant_1 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_small_plant_1-overlay.png"><img loading="lazy" src="img/obj_small_plant_1-overlay.png" alt="small_plant_1 · 叠加对照"></a></figure></div></section><section id="obj_small_plant_2"><h2>small_plant_2</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_small_plant_2-visual.png"><img loading="lazy" src="img/obj_small_plant_2-visual.png" alt="small_plant_2 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_small_plant_2-collider.png"><img loading="lazy" src="img/obj_small_plant_2-collider.png" alt="small_plant_2 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_small_plant_2-overlay.png"><img loading="lazy" src="img/obj_small_plant_2-overlay.png" alt="small_plant_2 · 叠加对照"></a></figure></div></section><section id="obj_small_plant_3"><h2>small_plant_3</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_small_plant_3-visual.png"><img loading="lazy" src="img/obj_small_plant_3-visual.png" alt="small_plant_3 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_small_plant_3-collider.png"><img loading="lazy" src="img/obj_small_plant_3-collider.png" alt="small_plant_3 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_small_plant_3-overlay.png"><img loading="lazy" src="img/obj_small_plant_3-overlay.png" alt="small_plant_3 · 叠加对照"></a></figure></div></section><section id="obj_food_box_9"><h2>food_box_9</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_food_box_9-visual.png"><img loading="lazy" src="img/obj_food_box_9-visual.png" alt="food_box_9 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_food_box_9-collider.png"><img loading="lazy" src="img/obj_food_box_9-collider.png" alt="food_box_9 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_food_box_9-overlay.png"><img loading="lazy" src="img/obj_food_box_9-overlay.png" alt="food_box_9 · 叠加对照"></a></figure></div></section><section id="obj_food_container"><h2>food_container</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_food_container-visual.png"><img loading="lazy" src="img/obj_food_container-visual.png" alt="food_container · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_food_container-collider.png"><img loading="lazy" src="img/obj_food_container-collider.png" alt="food_container · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_food_container-overlay.png"><img loading="lazy" src="img/obj_food_container-overlay.png" alt="food_container · 叠加对照"></a></figure></div></section><section id="obj_food_package_1"><h2>food_package_1</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_food_package_1-visual.png"><img loading="lazy" src="img/obj_food_package_1-visual.png" alt="food_package_1 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_food_package_1-collider.png"><img loading="lazy" src="img/obj_food_package_1-collider.png" alt="food_package_1 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_food_package_1-overlay.png"><img loading="lazy" src="img/obj_food_package_1-overlay.png" alt="food_package_1 · 叠加对照"></a></figure></div></section><section id="obj_food_packet_1"><h2>food_packet_1</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_food_packet_1-visual.png"><img loading="lazy" src="img/obj_food_packet_1-visual.png" alt="food_packet_1 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_food_packet_1-collider.png"><img loading="lazy" src="img/obj_food_packet_1-collider.png" alt="food_packet_1 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_food_packet_1-overlay.png"><img loading="lazy" src="img/obj_food_packet_1-overlay.png" alt="food_packet_1 · 叠加对照"></a></figure></div></section><section id="obj_food_packet_2"><h2>food_packet_2</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_food_packet_2-visual.png"><img loading="lazy" src="img/obj_food_packet_2-visual.png" alt="food_packet_2 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_food_packet_2-collider.png"><img loading="lazy" src="img/obj_food_packet_2-collider.png" alt="food_packet_2 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_food_packet_2-overlay.png"><img loading="lazy" src="img/obj_food_packet_2-overlay.png" alt="food_packet_2 · 叠加对照"></a></figure></div></section><section id="obj_food_packet_6"><h2>food_packet_6</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_food_packet_6-visual.png"><img loading="lazy" src="img/obj_food_packet_6-visual.png" alt="food_packet_6 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_food_packet_6-collider.png"><img loading="lazy" src="img/obj_food_packet_6-collider.png" alt="food_packet_6 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_food_packet_6-overlay.png"><img loading="lazy" src="img/obj_food_packet_6-overlay.png" alt="food_packet_6 · 叠加对照"></a></figure></div></section><section id="obj_cold_drink_bottle_4"><h2>cold_drink_bottle_4</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_cold_drink_bottle_4-visual.png"><img loading="lazy" src="img/obj_cold_drink_bottle_4-visual.png" alt="cold_drink_bottle_4 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_cold_drink_bottle_4-collider.png"><img loading="lazy" src="img/obj_cold_drink_bottle_4-collider.png" alt="cold_drink_bottle_4 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_cold_drink_bottle_4-overlay.png"><img loading="lazy" src="img/obj_cold_drink_bottle_4-overlay.png" alt="cold_drink_bottle_4 · 叠加对照"></a></figure></div></section><section id="obj_cold_drink_bottle_5"><h2>cold_drink_bottle_5</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_cold_drink_bottle_5-visual.png"><img loading="lazy" src="img/obj_cold_drink_bottle_5-visual.png" alt="cold_drink_bottle_5 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_cold_drink_bottle_5-collider.png"><img loading="lazy" src="img/obj_cold_drink_bottle_5-collider.png" alt="cold_drink_bottle_5 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_cold_drink_bottle_5-overlay.png"><img loading="lazy" src="img/obj_cold_drink_bottle_5-overlay.png" alt="cold_drink_bottle_5 · 叠加对照"></a></figure></div></section><section id="obj_soda_can"><h2>soda_can</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_soda_can-visual.png"><img loading="lazy" src="img/obj_soda_can-visual.png" alt="soda_can · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_soda_can-collider.png"><img loading="lazy" src="img/obj_soda_can-collider.png" alt="soda_can · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_soda_can-overlay.png"><img loading="lazy" src="img/obj_soda_can-overlay.png" alt="soda_can · 叠加对照"></a></figure></div></section><section id="obj_juice_bottle"><h2>juice_bottle</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_juice_bottle-visual.png"><img loading="lazy" src="img/obj_juice_bottle-visual.png" alt="juice_bottle · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_juice_bottle-collider.png"><img loading="lazy" src="img/obj_juice_bottle-collider.png" alt="juice_bottle · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_juice_bottle-overlay.png"><img loading="lazy" src="img/obj_juice_bottle-overlay.png" alt="juice_bottle · 叠加对照"></a></figure></div></section><section id="obj_soda_can_7"><h2>soda_can_7</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_soda_can_7-visual.png"><img loading="lazy" src="img/obj_soda_can_7-visual.png" alt="soda_can_7 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_soda_can_7-collider.png"><img loading="lazy" src="img/obj_soda_can_7-collider.png" alt="soda_can_7 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_soda_can_7-overlay.png"><img loading="lazy" src="img/obj_soda_can_7-overlay.png" alt="soda_can_7 · 叠加对照"></a></figure></div></section><section id="obj_food_packet_7"><h2>food_packet_7</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_food_packet_7-visual.png"><img loading="lazy" src="img/obj_food_packet_7-visual.png" alt="food_packet_7 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_food_packet_7-collider.png"><img loading="lazy" src="img/obj_food_packet_7-collider.png" alt="food_packet_7 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_food_packet_7-overlay.png"><img loading="lazy" src="img/obj_food_packet_7-overlay.png" alt="food_packet_7 · 叠加对照"></a></figure></div></section><section id="obj_french"><h2>french</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_french-visual.png"><img loading="lazy" src="img/obj_french-visual.png" alt="french · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_french-collider.png"><img loading="lazy" src="img/obj_french-collider.png" alt="french · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_french-overlay.png"><img loading="lazy" src="img/obj_french-overlay.png" alt="french · 叠加对照"></a></figure></div></section><section id="obj_antiseptic_healing_ointment"><h2>antiseptic_healing_ointment</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_antiseptic_healing_ointment-visual.png"><img loading="lazy" src="img/obj_antiseptic_healing_ointment-visual.png" alt="antiseptic_healing_ointment · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_antiseptic_healing_ointment-collider.png"><img loading="lazy" src="img/obj_antiseptic_healing_ointment-collider.png" alt="antiseptic_healing_ointment · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_antiseptic_healing_ointment-overlay.png"><img loading="lazy" src="img/obj_antiseptic_healing_ointment-overlay.png" alt="antiseptic_healing_ointment · 叠加对照"></a></figure></div></section><section id="obj_calamine_powder"><h2>calamine_powder</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_calamine_powder-visual.png"><img loading="lazy" src="img/obj_calamine_powder-visual.png" alt="calamine_powder · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_calamine_powder-collider.png"><img loading="lazy" src="img/obj_calamine_powder-collider.png" alt="calamine_powder · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_calamine_powder-overlay.png"><img loading="lazy" src="img/obj_calamine_powder-overlay.png" alt="calamine_powder · 叠加对照"></a></figure></div></section><section id="obj_eye_care_solution_bottle"><h2>eye_care_solution_bottle</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_eye_care_solution_bottle-visual.png"><img loading="lazy" src="img/obj_eye_care_solution_bottle-visual.png" alt="eye_care_solution_bottle · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_eye_care_solution_bottle-collider.png"><img loading="lazy" src="img/obj_eye_care_solution_bottle-collider.png" alt="eye_care_solution_bottle · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_eye_care_solution_bottle-overlay.png"><img loading="lazy" src="img/obj_eye_care_solution_bottle-overlay.png" alt="eye_care_solution_bottle · 叠加对照"></a></figure></div></section><section id="obj_liquid_antacid"><h2>liquid_antacid</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_liquid_antacid-visual.png"><img loading="lazy" src="img/obj_liquid_antacid-visual.png" alt="liquid_antacid · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_liquid_antacid-collider.png"><img loading="lazy" src="img/obj_liquid_antacid-collider.png" alt="liquid_antacid · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_liquid_antacid-overlay.png"><img loading="lazy" src="img/obj_liquid_antacid-overlay.png" alt="liquid_antacid · 叠加对照"></a></figure></div></section><section id="obj_multivitamin_mineral_tablets"><h2>multivitamin_mineral_tablets</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_multivitamin_mineral_tablets-visual.png"><img loading="lazy" src="img/obj_multivitamin_mineral_tablets-visual.png" alt="multivitamin_mineral_tablets · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_multivitamin_mineral_tablets-collider.png"><img loading="lazy" src="img/obj_multivitamin_mineral_tablets-collider.png" alt="multivitamin_mineral_tablets · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_multivitamin_mineral_tablets-overlay.png"><img loading="lazy" src="img/obj_multivitamin_mineral_tablets-overlay.png" alt="multivitamin_mineral_tablets · 叠加对照"></a></figure></div></section><section id="obj_nasal_spray_bottle"><h2>nasal_spray_bottle</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_nasal_spray_bottle-visual.png"><img loading="lazy" src="img/obj_nasal_spray_bottle-visual.png" alt="nasal_spray_bottle · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_nasal_spray_bottle-collider.png"><img loading="lazy" src="img/obj_nasal_spray_bottle-collider.png" alt="nasal_spray_bottle · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_nasal_spray_bottle-overlay.png"><img loading="lazy" src="img/obj_nasal_spray_bottle-overlay.png" alt="nasal_spray_bottle · 叠加对照"></a></figure></div></section><section id="obj_pain_relief_gel"><h2>pain_relief_gel</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_pain_relief_gel-visual.png"><img loading="lazy" src="img/obj_pain_relief_gel-visual.png" alt="pain_relief_gel · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_pain_relief_gel-collider.png"><img loading="lazy" src="img/obj_pain_relief_gel-collider.png" alt="pain_relief_gel · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_pain_relief_gel-overlay.png"><img loading="lazy" src="img/obj_pain_relief_gel-overlay.png" alt="pain_relief_gel · 叠加对照"></a></figure></div></section><section id="obj_rehydration_care"><h2>rehydration_care</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_rehydration_care-visual.png"><img loading="lazy" src="img/obj_rehydration_care-visual.png" alt="rehydration_care · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_rehydration_care-collider.png"><img loading="lazy" src="img/obj_rehydration_care-collider.png" alt="rehydration_care · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_rehydration_care-overlay.png"><img loading="lazy" src="img/obj_rehydration_care-overlay.png" alt="rehydration_care · 叠加对照"></a></figure></div></section><section id="obj_vaporub_bottle"><h2>vaporub_bottle</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_vaporub_bottle-visual.png"><img loading="lazy" src="img/obj_vaporub_bottle-visual.png" alt="vaporub_bottle · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_vaporub_bottle-collider.png"><img loading="lazy" src="img/obj_vaporub_bottle-collider.png" alt="vaporub_bottle · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_vaporub_bottle-overlay.png"><img loading="lazy" src="img/obj_vaporub_bottle-overlay.png" alt="vaporub_bottle · 叠加对照"></a></figure></div></section><section id="obj_cpu_case_box_1"><h2>cpu_case_box_1</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_cpu_case_box_1-visual.png"><img loading="lazy" src="img/obj_cpu_case_box_1-visual.png" alt="cpu_case_box_1 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_cpu_case_box_1-collider.png"><img loading="lazy" src="img/obj_cpu_case_box_1-collider.png" alt="cpu_case_box_1 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_cpu_case_box_1-overlay.png"><img loading="lazy" src="img/obj_cpu_case_box_1-overlay.png" alt="cpu_case_box_1 · 叠加对照"></a></figure></div></section><section id="obj_gaming_remote_box_1"><h2>gaming_remote_box_1</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_gaming_remote_box_1-visual.png"><img loading="lazy" src="img/obj_gaming_remote_box_1-visual.png" alt="gaming_remote_box_1 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_gaming_remote_box_1-collider.png"><img loading="lazy" src="img/obj_gaming_remote_box_1-collider.png" alt="gaming_remote_box_1 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_gaming_remote_box_1-overlay.png"><img loading="lazy" src="img/obj_gaming_remote_box_1-overlay.png" alt="gaming_remote_box_1 · 叠加对照"></a></figure></div></section><section id="obj_graphic_card_box_1"><h2>graphic_card_box_1</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_graphic_card_box_1-visual.png"><img loading="lazy" src="img/obj_graphic_card_box_1-visual.png" alt="graphic_card_box_1 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_graphic_card_box_1-collider.png"><img loading="lazy" src="img/obj_graphic_card_box_1-collider.png" alt="graphic_card_box_1 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_graphic_card_box_1-overlay.png"><img loading="lazy" src="img/obj_graphic_card_box_1-overlay.png" alt="graphic_card_box_1 · 叠加对照"></a></figure></div></section><section id="obj_headphone_box_1"><h2>headphone_box_1</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_headphone_box_1-visual.png"><img loading="lazy" src="img/obj_headphone_box_1-visual.png" alt="headphone_box_1 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_headphone_box_1-collider.png"><img loading="lazy" src="img/obj_headphone_box_1-collider.png" alt="headphone_box_1 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_headphone_box_1-overlay.png"><img loading="lazy" src="img/obj_headphone_box_1-overlay.png" alt="headphone_box_1 · 叠加对照"></a></figure></div></section><section id="obj_monitor_box_1"><h2>monitor_box_1</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_monitor_box_1-visual.png"><img loading="lazy" src="img/obj_monitor_box_1-visual.png" alt="monitor_box_1 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_monitor_box_1-collider.png"><img loading="lazy" src="img/obj_monitor_box_1-collider.png" alt="monitor_box_1 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_monitor_box_1-overlay.png"><img loading="lazy" src="img/obj_monitor_box_1-overlay.png" alt="monitor_box_1 · 叠加对照"></a></figure></div></section><section id="obj_headphone_box_2"><h2>headphone_box_2</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/obj_headphone_box_2-visual.png"><img loading="lazy" src="img/obj_headphone_box_2-visual.png" alt="headphone_box_2 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/obj_headphone_box_2-collider.png"><img loading="lazy" src="img/obj_headphone_box_2-collider.png" alt="headphone_box_2 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/obj_headphone_box_2-overlay.png"><img loading="lazy" src="img/obj_headphone_box_2-overlay.png" alt="headphone_box_2 · 叠加对照"></a></figure></div></section><section id="decoration_set_vase"><h2>瓶体 · 无植物</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/decoration_set_vase-visual.png"><img loading="lazy" src="img/decoration_set_vase-visual.png" alt="瓶体 · 无植物 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/decoration_set_vase-collider.png"><img loading="lazy" src="img/decoration_set_vase-collider.png" alt="瓶体 · 无植物 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/decoration_set_vase-overlay.png"><img loading="lazy" src="img/decoration_set_vase-overlay.png" alt="瓶体 · 无植物 · 叠加对照"></a></figure></div></section><section id="decoration_set_tabletop"><h2>桌面 · 瓶与水果碗</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/decoration_set_tabletop-visual.png"><img loading="lazy" src="img/decoration_set_tabletop-visual.png" alt="桌面 · 瓶与水果碗 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/decoration_set_tabletop-collider.png"><img loading="lazy" src="img/decoration_set_tabletop-collider.png" alt="桌面 · 瓶与水果碗 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/decoration_set_tabletop-overlay.png"><img loading="lazy" src="img/decoration_set_tabletop-overlay.png" alt="桌面 · 瓶与水果碗 · 叠加对照"></a></figure></div></section><section id="decoration_set_shelf"><h2>书架 · 书与蜡烛</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/decoration_set_shelf-visual.png"><img loading="lazy" src="img/decoration_set_shelf-visual.png" alt="书架 · 书与蜡烛 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/decoration_set_shelf-collider.png"><img loading="lazy" src="img/decoration_set_shelf-collider.png" alt="书架 · 书与蜡烛 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/decoration_set_shelf-overlay.png"><img loading="lazy" src="img/decoration_set_shelf-overlay.png" alt="书架 · 书与蜡烛 · 叠加对照"></a></figure></div></section><section id="decoration_set_bowl"><h2>水果碗 · 41 形状</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/decoration_set_bowl-visual.png"><img loading="lazy" src="img/decoration_set_bowl-visual.png" alt="水果碗 · 41 形状 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/decoration_set_bowl-collider.png"><img loading="lazy" src="img/decoration_set_bowl-collider.png" alt="水果碗 · 41 形状 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/decoration_set_bowl-overlay.png"><img loading="lazy" src="img/decoration_set_bowl-overlay.png" alt="水果碗 · 41 形状 · 叠加对照"></a></figure></div></section><section id="chess_pieces_white_queen_low_001"><h2>马头 · white_queen_low_001</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/chess_pieces_white_queen_low_001-visual.png"><img loading="lazy" src="img/chess_pieces_white_queen_low_001-visual.png" alt="马头 · white_queen_low_001 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/chess_pieces_white_queen_low_001-collider.png"><img loading="lazy" src="img/chess_pieces_white_queen_low_001-collider.png" alt="马头 · white_queen_low_001 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/chess_pieces_white_queen_low_001-overlay.png"><img loading="lazy" src="img/chess_pieces_white_queen_low_001-overlay.png" alt="马头 · white_queen_low_001 · 叠加对照"></a></figure></div></section><section id="chess_pieces_white_queen_low_002"><h2>马头 · white_queen_low_002</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/chess_pieces_white_queen_low_002-visual.png"><img loading="lazy" src="img/chess_pieces_white_queen_low_002-visual.png" alt="马头 · white_queen_low_002 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/chess_pieces_white_queen_low_002-collider.png"><img loading="lazy" src="img/chess_pieces_white_queen_low_002-collider.png" alt="马头 · white_queen_low_002 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/chess_pieces_white_queen_low_002-overlay.png"><img loading="lazy" src="img/chess_pieces_white_queen_low_002-overlay.png" alt="马头 · white_queen_low_002 · 叠加对照"></a></figure></div></section><section id="chess_pieces_black_queen_low_001"><h2>马头 · black_queen_low_001</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/chess_pieces_black_queen_low_001-visual.png"><img loading="lazy" src="img/chess_pieces_black_queen_low_001-visual.png" alt="马头 · black_queen_low_001 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/chess_pieces_black_queen_low_001-collider.png"><img loading="lazy" src="img/chess_pieces_black_queen_low_001-collider.png" alt="马头 · black_queen_low_001 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/chess_pieces_black_queen_low_001-overlay.png"><img loading="lazy" src="img/chess_pieces_black_queen_low_001-overlay.png" alt="马头 · black_queen_low_001 · 叠加对照"></a></figure></div></section><section id="chess_pieces_black_queen_low_002"><h2>马头 · black_queen_low_002</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/chess_pieces_black_queen_low_002-visual.png"><img loading="lazy" src="img/chess_pieces_black_queen_low_002-visual.png" alt="马头 · black_queen_low_002 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/chess_pieces_black_queen_low_002-collider.png"><img loading="lazy" src="img/chess_pieces_black_queen_low_002-collider.png" alt="马头 · black_queen_low_002 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/chess_pieces_black_queen_low_002-overlay.png"><img loading="lazy" src="img/chess_pieces_black_queen_low_002-overlay.png" alt="马头 · black_queen_low_002 · 叠加对照"></a></figure></div></section><section id="snack_container_base"><h2>托盘与支撑</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/snack_container_base-visual.png"><img loading="lazy" src="img/snack_container_base-visual.png" alt="托盘与支撑 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/snack_container_base-collider.png"><img loading="lazy" src="img/snack_container_base-collider.png" alt="托盘与支撑 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/snack_container_base-overlay.png"><img loading="lazy" src="img/snack_container_base-overlay.png" alt="托盘与支撑 · 叠加对照"></a></figure></div></section><section id="snack_container_center"><h2>中央碗 · 接触面</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/snack_container_center-visual.png"><img loading="lazy" src="img/snack_container_center-visual.png" alt="中央碗 · 接触面 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/snack_container_center-collider.png"><img loading="lazy" src="img/snack_container_center-collider.png" alt="中央碗 · 接触面 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/snack_container_center-overlay.png"><img loading="lazy" src="img/snack_container_center-overlay.png" alt="中央碗 · 接触面 · 叠加对照"></a></figure></div></section><section id="coffee_pods_bowl"><h2>咖啡胶囊碗 · 73 形状</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/coffee_pods_bowl-visual.png"><img loading="lazy" src="img/coffee_pods_bowl-visual.png" alt="咖啡胶囊碗 · 73 形状 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/coffee_pods_bowl-collider.png"><img loading="lazy" src="img/coffee_pods_bowl-collider.png" alt="咖啡胶囊碗 · 73 形状 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/coffee_pods_bowl-overlay.png"><img loading="lazy" src="img/coffee_pods_bowl-overlay.png" alt="咖啡胶囊碗 · 73 形状 · 叠加对照"></a></figure></div></section><section id="decorative_books_cylinder003"><h2>Cylinder_003 · 73 形状</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/decorative_books_cylinder003-visual.png"><img loading="lazy" src="img/decorative_books_cylinder003-visual.png" alt="Cylinder_003 · 73 形状 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/decorative_books_cylinder003-collider.png"><img loading="lazy" src="img/decorative_books_cylinder003-collider.png" alt="Cylinder_003 · 73 形状 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/decorative_books_cylinder003-overlay.png"><img loading="lazy" src="img/decorative_books_cylinder003-overlay.png" alt="Cylinder_003 · 73 形状 · 叠加对照"></a></figure></div></section><section id="french_base"><h2>杯身 · 39 形状</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/french_base-visual.png"><img loading="lazy" src="img/french_base-visual.png" alt="杯身 · 39 形状 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/french_base-collider.png"><img loading="lazy" src="img/french_base-collider.png" alt="杯身 · 39 形状 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/french_base-overlay.png"><img loading="lazy" src="img/french_base-overlay.png" alt="杯身 · 39 形状 · 叠加对照"></a></figure></div></section><section id="french_plunger"><h2>压杆与 Sphere 旋钮</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/french_plunger-visual.png"><img loading="lazy" src="img/french_plunger-visual.png" alt="压杆与 Sphere 旋钮 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/french_plunger-collider.png"><img loading="lazy" src="img/french_plunger-collider.png" alt="压杆与 Sphere 旋钮 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/french_plunger-overlay.png"><img loading="lazy" src="img/french_plunger-overlay.png" alt="压杆与 Sphere 旋钮 · 叠加对照"></a></figure></div></section><section id="sofa_base"><h2>运动学底座</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/sofa_base-visual.png"><img loading="lazy" src="img/sofa_base-visual.png" alt="运动学底座 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/sofa_base-collider.png"><img loading="lazy" src="img/sofa_base-collider.png" alt="运动学底座 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/sofa_base-overlay.png"><img loading="lazy" src="img/sofa_base-overlay.png" alt="运动学底座 · 叠加对照"></a></figure></div></section><section id="kettle_detail"><h2>壶口与空腔</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/kettle_detail-visual.png"><img loading="lazy" src="img/kettle_detail-visual.png" alt="壶口与空腔 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/kettle_detail-collider.png"><img loading="lazy" src="img/kettle_detail-collider.png" alt="壶口与空腔 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/kettle_detail-overlay.png"><img loading="lazy" src="img/kettle_detail-overlay.png" alt="壶口与空腔 · 叠加对照"></a></figure></div></section><section id="snack_container_detail"><h2>俯视 · 碗口与支撑</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/snack_container_detail-visual.png"><img loading="lazy" src="img/snack_container_detail-visual.png" alt="俯视 · 碗口与支撑 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/snack_container_detail-collider.png"><img loading="lazy" src="img/snack_container_detail-collider.png" alt="俯视 · 碗口与支撑 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/snack_container_detail-overlay.png"><img loading="lazy" src="img/snack_container_detail-overlay.png" alt="俯视 · 碗口与支撑 · 叠加对照"></a></figure></div></section><section id="table_fan_detail"><h2>侧面 · 扇罩与支架</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/table_fan_detail-visual.png"><img loading="lazy" src="img/table_fan_detail-visual.png" alt="侧面 · 扇罩与支架 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/table_fan_detail-collider.png"><img loading="lazy" src="img/table_fan_detail-collider.png" alt="侧面 · 扇罩与支架 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/table_fan_detail-overlay.png"><img loading="lazy" src="img/table_fan_detail-overlay.png" alt="侧面 · 扇罩与支架 · 叠加对照"></a></figure></div></section><section id="tissue_detail"><h2>俯视 · 薄片轮廓</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/tissue_detail-visual.png"><img loading="lazy" src="img/tissue_detail-visual.png" alt="俯视 · 薄片轮廓 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/tissue_detail-collider.png"><img loading="lazy" src="img/tissue_detail-collider.png" alt="俯视 · 薄片轮廓 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/tissue_detail-overlay.png"><img loading="lazy" src="img/tissue_detail-overlay.png" alt="俯视 · 薄片轮廓 · 叠加对照"></a></figure></div></section><section id="laptop_detail"><h2>侧面 · 屏幕与底座</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/laptop_detail-visual.png"><img loading="lazy" src="img/laptop_detail-visual.png" alt="侧面 · 屏幕与底座 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/laptop_detail-collider.png"><img loading="lazy" src="img/laptop_detail-collider.png" alt="侧面 · 屏幕与底座 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/laptop_detail-overlay.png"><img loading="lazy" src="img/laptop_detail-overlay.png" alt="侧面 · 屏幕与底座 · 叠加对照"></a></figure></div></section><section id="sofa_detail"><h2>俯视 · 动态坐垫</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/sofa_detail-visual.png"><img loading="lazy" src="img/sofa_detail-visual.png" alt="俯视 · 动态坐垫 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/sofa_detail-collider.png"><img loading="lazy" src="img/sofa_detail-collider.png" alt="俯视 · 动态坐垫 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/sofa_detail-overlay.png"><img loading="lazy" src="img/sofa_detail-overlay.png" alt="俯视 · 动态坐垫 · 叠加对照"></a></figure></div></section><section id="region_sofa"><h2>沙发与书架</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/region_sofa-visual.png"><img loading="lazy" src="img/region_sofa-visual.png" alt="沙发与书架 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/region_sofa-collider.png"><img loading="lazy" src="img/region_sofa-collider.png" alt="沙发与书架 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/region_sofa-overlay.png"><img loading="lazy" src="img/region_sofa-overlay.png" alt="沙发与书架 · 叠加对照"></a></figure></div></section><section id="region_tea_table"><h2>茶几区</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/region_tea_table-visual.png"><img loading="lazy" src="img/region_tea_table-visual.png" alt="茶几区 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/region_tea_table-collider.png"><img loading="lazy" src="img/region_tea_table-collider.png" alt="茶几区 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/region_tea_table-overlay.png"><img loading="lazy" src="img/region_tea_table-overlay.png" alt="茶几区 · 叠加对照"></a></figure></div></section><section id="contents_tea_table"><h2>茶几区 · 桌面物件</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/contents_tea_table-visual.png"><img loading="lazy" src="img/contents_tea_table-visual.png" alt="茶几区 · 桌面物件 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/contents_tea_table-collider.png"><img loading="lazy" src="img/contents_tea_table-collider.png" alt="茶几区 · 桌面物件 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/contents_tea_table-overlay.png"><img loading="lazy" src="img/contents_tea_table-overlay.png" alt="茶几区 · 桌面物件 · 叠加对照"></a></figure></div></section><section id="region_side_table_left"><h2>左侧桌区</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/region_side_table_left-visual.png"><img loading="lazy" src="img/region_side_table_left-visual.png" alt="左侧桌区 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/region_side_table_left-collider.png"><img loading="lazy" src="img/region_side_table_left-collider.png" alt="左侧桌区 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/region_side_table_left-overlay.png"><img loading="lazy" src="img/region_side_table_left-overlay.png" alt="左侧桌区 · 叠加对照"></a></figure></div></section><section id="contents_side_table_left"><h2>左侧桌区 · 桌面物件</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/contents_side_table_left-visual.png"><img loading="lazy" src="img/contents_side_table_left-visual.png" alt="左侧桌区 · 桌面物件 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/contents_side_table_left-collider.png"><img loading="lazy" src="img/contents_side_table_left-collider.png" alt="左侧桌区 · 桌面物件 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/contents_side_table_left-overlay.png"><img loading="lazy" src="img/contents_side_table_left-overlay.png" alt="左侧桌区 · 桌面物件 · 叠加对照"></a></figure></div></section><section id="region_side_table_right"><h2>右侧桌区</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/region_side_table_right-visual.png"><img loading="lazy" src="img/region_side_table_right-visual.png" alt="右侧桌区 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/region_side_table_right-collider.png"><img loading="lazy" src="img/region_side_table_right-collider.png" alt="右侧桌区 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/region_side_table_right-overlay.png"><img loading="lazy" src="img/region_side_table_right-overlay.png" alt="右侧桌区 · 叠加对照"></a></figure></div></section><section id="contents_side_table_right"><h2>右侧桌区 · 桌面物件</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/contents_side_table_right-visual.png"><img loading="lazy" src="img/contents_side_table_right-visual.png" alt="右侧桌区 · 桌面物件 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/contents_side_table_right-collider.png"><img loading="lazy" src="img/contents_side_table_right-collider.png" alt="右侧桌区 · 桌面物件 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/contents_side_table_right-overlay.png"><img loading="lazy" src="img/contents_side_table_right-overlay.png" alt="右侧桌区 · 桌面物件 · 叠加对照"></a></figure></div></section><section id="region_floor"><h2>地面与隔屏</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/region_floor-visual.png"><img loading="lazy" src="img/region_floor-visual.png" alt="地面与隔屏 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/region_floor-collider.png"><img loading="lazy" src="img/region_floor-collider.png" alt="地面与隔屏 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/region_floor-overlay.png"><img loading="lazy" src="img/region_floor-overlay.png" alt="地面与隔屏 · 叠加对照"></a></figure></div></section><section id="region_background"><h2>房间背景</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/region_background-visual.png"><img loading="lazy" src="img/region_background-visual.png" alt="房间背景 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/region_background-collider.png"><img loading="lazy" src="img/region_background-collider.png" alt="房间背景 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/region_background-overlay.png"><img loading="lazy" src="img/region_background-overlay.png" alt="房间背景 · 叠加对照"></a></figure></div></section><section id="snacks_filled"><h2>零食组合 · 79 个独立填充物</h2><div class="gallery"><figure><figcaption>可视几何</figcaption><a href="img/snacks_filled-visual.png"><img loading="lazy" src="img/snacks_filled-visual.png" alt="零食组合 · 79 个独立填充物 · 可视几何"></a></figure><figure><figcaption>碰撞近似 · 分块色</figcaption><a href="img/snacks_filled-collider.png"><img loading="lazy" src="img/snacks_filled-collider.png" alt="零食组合 · 79 个独立填充物 · 碰撞近似 · 分块色"></a></figure><figure><figcaption>叠加对照</figcaption><a href="img/snacks_filled-overlay.png"><img loading="lazy" src="img/snacks_filled-overlay.png" alt="零食组合 · 79 个独立填充物 · 叠加对照"></a></figure></div></section></body></html>

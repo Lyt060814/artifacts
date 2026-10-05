@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "domain": "artifact.yitongli14.com",
+  "artifacts": [
+    {
+      "name": "scene00202-colliders",
+      "title": "scene002.02 · 碰撞几何检查",
+      "kind": "colliders",
+      "url": "scene00202-colliders/",
+      "provisional": false,
+      "copied_at": "2026-10-05T07:58:13.107631+00:00",
+      "source_head": "6d5e69ad16a0372baaa86a6cf522d14b93136758",
+      "source_scene_sha256": "b8a98f0abec46b06cfb7291c17fb474adc5c8e5aab2a935946519ce31e9278e9",
+      "source_layer_manifest_sha256": "3afdbf9a470b19872fe190bf0b72bdd292f735007bd31f5599c7a06cc6f1e4dc",
+      "snapshot_sha256": "18585c975e669c179f93dd391be1d207d5b20d11fbb4228667095580eee79ecd",
+      "counts": {
+        "bodies": 364,
+        "kinematic_bodies": 4,
+        "colliders": 1814,
+        "hulls": 1540,
+        "raw_visible_mesh_colliders": 1,
+        "hull_vertices_over_limit": 0,
+        "visual_vertices": 1649682,
+        "visual_triangles": 2021506,
+        "native": 273,
+        "other": 1,
+        "top_level_prims": 182,
+        "entity_objects": 180,
+        "objects_with_colliders": 179,
+        "tea_leaf_objects": 48
+      },
+      "views": 142
+    }
+  ]
+}

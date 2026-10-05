@@ -1,0 +1,5 @@
+* -filter
+*.png binary
+*.webp binary
+*.woff binary
+*.zip binary
